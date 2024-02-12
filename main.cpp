@@ -3,6 +3,7 @@
 
 using namespace std;
 const int CMax = 10;
+double VID[CMax] ={0};
 
 struct Mokinys{
   string vardas;
@@ -32,6 +33,8 @@ int main(){
         cin >> A[i].egzaminas;
     }
 
+    Vidurkis(A, n, m);
+
     cout<<endl;
     cout << "Pavardė" << setfill(' ') << setw(10) << "Vardas" << setfill(' ') << setw(35) << "Galutinis (Vid.) / Galutinis(Med.)"<<endl;
     cout << "------------------------------------------"<<endl;
@@ -40,4 +43,14 @@ int main(){
         cout << A[i].vardas << setw(10) << A[i].pavarde << setw(10) << " " << endl;
     }
     return 0;
+}
+void Vidurkis(Mokinys A[], int n, int m){
+    double suma = 0;
+    for(int i=0; i<m; i++){
+        for(int j = 0; j<n; j++)
+            suma += A[i].ND[j];
+        suma += A[i].egzaminas;
+        VID[i] = suma / (n+1);
+        suma = 0;
+    }
 }
