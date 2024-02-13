@@ -1,13 +1,13 @@
 #include <iostream>
 #include <iomanip>
 #include <algorithm>
-#include <cstring>
 #include <string>
+#include <cstring>
 #include <cctype>
 
 using namespace std;
 const int CMax = 10;
-double VID[CMax] ={0};
+double VID[CMax] = {0};
 
 struct Mokinys{
   string vardas;
@@ -17,7 +17,7 @@ struct Mokinys{
 };
 
 void Vidurkis(Mokinys A[], int n, int m);
-bool Patikrinimas(string kint, int m, int n);
+bool Patikrinimas(string kint);
 
 int main(){
 
@@ -25,6 +25,8 @@ int main(){
     Mokinys A[CMax], B[CMax];
     int DID[CMax];
     string kint;
+
+    //Ivedimas #1
 
     cout << "Mokiniu skaicius: ";
     cin >> m;
@@ -42,21 +44,33 @@ int main(){
     cout << endl;
     cout << "Iveskite varda, pavarde, pazymius uz namu darbus bei egzamino rezultata: ";
 
+    //Ivedimas #2
+
     for(int i=0; i<m; i++){
         cin >> A[i].vardas >> A[i].pavarde;
-        if(Patikrinimas(A[i].vardas, m,n) == false || Patikrinimas(A[i].pavarde, m,n) == false){
+        if(Patikrinimas(A[i].vardas) == false || Patikrinimas(A[i].pavarde) == false){
             cout << "Ivestas netinkamas vardas arba pavarde" <<endl;
             return 0;
         }
         for(int j=0; j<n; j++){
             cin >> A[i].ND[j];
+            if(A[i].ND[j] > 10 || A[i].ND[j] < 1){
+                cout << "Netinkamai ivestas pazymys" << endl;
+                return 0;
+            }
             B[i].ND[j]=A[i].ND[j];
         }
         cin >> A[i].egzaminas;
+        if (A[i].egzaminas > 10 || A[i].egzaminas < 1){
+            cout << "Netinkamai ivestas pazymys" << endl;
+            return 0;
+        }
         B[i].ND[n] = A[i].egzaminas; 
     }
 
     Vidurkis(A, n, m);
+
+    //Isvedimas
 
     cout<<endl;
     cout << setw(20) << left << "Vardas" << setw(20) << left << "Pavardė" << setw(20) << right << "Galutinis (Vid.) / Galutinis(Med.)"<<endl;
@@ -88,7 +102,7 @@ void Vidurkis(Mokinys A[], int n, int m){
         suma = 0;
     }
 }
-bool Patikrinimas(string kint, int m, int n){
+bool Patikrinimas(string kint){
     const int ilgis = kint.length();
     char* temp_array = new char[ilgis + 1];
     strcpy(temp_array, kint.c_str());
@@ -96,5 +110,6 @@ bool Patikrinimas(string kint, int m, int n){
             if(!isalpha(temp_array[i]))
                 return false;
         }
+    delete[] temp_array;
     return true;
 }
