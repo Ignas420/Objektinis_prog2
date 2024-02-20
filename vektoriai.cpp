@@ -29,20 +29,20 @@ struct Mokinys
 bool Patikrinimas(string kint);
 void Vidurkis(vector<Mokinys> &A);
 void Isvedimas(const vector<Mokinys> &A, int MOK_kiekis);
-bool PagalVidurki(const Mokinys &a, const Mokinys &b);
-bool PagalMediana(const Mokinys &a, const Mokinys &b);
-bool PagalVarda(const Mokinys &a, const Mokinys &b);
-bool PagalPavarde(const Mokinys &a, const Mokinys &b);
 
 int main()
 {
     int n, m, kint;
     vector<Mokinys> A;
-    auto start = std::chrono::high_resolution_clock::now();
-    auto st = start;
     ifstream fd(CDfv);
     string eil;
     char input;
+
+    cout << "Norite ivesti, ar skaityti is failo?(i/s) ";
+    cin >> input;
+
+    if (input == 'i')
+    {
         cout << "Irasykite kiek yra mokiniu: ";
         cin >> m;
         cout << "Iveskite vardus ir pavardes: " << endl;
@@ -100,7 +100,45 @@ int main()
         median = (temp[temp.size() / 2 - 1] + temp[temp.size() / 2]) / 2.0;
     A[i].MED = median;
 }
+    }
+    else if (input == 's')
+    {
+        while (getline(fd, eil))
+        {
+            istringstream iss(eil);
+            Mokinys temp;
+            iss >> temp.vardas >> temp.pavarde;
+            int pazymiai;
+            while (iss >> pazymiai)
+                temp.ND.push_back(pazymiai);
+
+            if (!temp.ND.empty())
+            {
+                temp.egzaminas = temp.ND.back();
+                temp.ND.pop_back();
+            }
+
+            sort(temp.ND.begin(), temp.ND.end());
+            double mediana;
+
+            if (!temp.ND.empty())
+            {
+                mediana = temp.ND[temp.ND.size() / 2];
+                if (temp.ND.size() % 2 == 0)
+                {
+                    mediana = (temp.ND[temp.ND.size() / 2 - 1] + temp.ND[temp.ND.size() / 2]) / 2.0;
+                }
+            }
+            temp.MED = mediana;
+            A.push_back(temp);
+        }
+        fd.close();
+        Vidurkis(A);
+    Isvedimas(A, A.size());
+    return 0;
 }
+}
+
 void Vidurkis(vector<Mokinys> &A)
 {
     for (int i = 0; i < A.size(); i++)
@@ -116,7 +154,6 @@ void Vidurkis(vector<Mokinys> &A)
         mok.VID = vidurkis;
     }
 }
-
 bool Patikrinimas(string kint)
 {
     const int ilgis = kint.length();
