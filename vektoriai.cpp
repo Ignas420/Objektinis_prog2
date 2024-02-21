@@ -12,9 +12,9 @@ using namespace std;
 
 const char CRfv[] = "rezultatai.txt";
 const char CDfv[] = "kursiokai.txt";
-/* const char CDfv[] = "studentai10000.txt";
-const char CDfv[] = "studentai100000.txt";
-const char CDfv[] = "studentai1000000.txt"; */
+//const char CDfv[] = "studentai10000.txt";
+//const char CDfv[] = "studentai100000.txt";
+//const char CDfv[] = "studentai1000000.txt";
 
 struct Mokinys
 {
@@ -109,6 +109,7 @@ int main()
     }
     else if (input == 's')
     {
+        getline(fd, eil);
         while (getline(fd, eil))
         {
             istringstream iss(eil);
@@ -157,6 +158,19 @@ int main()
         {
             sort(A.begin(), A.end(), PagalVarda);
         }
+        else if (kint == 'p')
+        {
+            sort(A.begin(), A.end(), PagalPavarde);
+        }
+        else{
+            cout << "Netinkama ivestis!" << endl;
+            return 0;
+        }
+    }
+    else
+    {
+        cout << "Netinkama ivestis!" << endl;
+        return 0;
     }
     Isvedimas(A, A.size());
     return 0;
@@ -177,19 +191,6 @@ void Vidurkis(vector<Mokinys> &A)
         mok.VID = vidurkis;
     }
 }
-bool Patikrinimas(string kint)
-{
-    const int ilgis = kint.length();
-    char *temp_array = new char[ilgis + 1];
-    strcpy(temp_array, kint.c_str());
-    for (int i = 0; i < ilgis; i++)
-    {
-        if (!isalpha(temp_array[i]))
-            return false;
-    }
-    delete[] temp_array;
-    return true;
-}
 bool PagalVidurki(const Mokinys &a, const Mokinys &b)
 {
     return a.VID > b.VID;
@@ -205,6 +206,19 @@ bool PagalVarda(const Mokinys &a, const Mokinys &b)
 bool PagalPavarde(const Mokinys &a, const Mokinys &b)
 {
     return a.pavarde > b.pavarde;
+}
+bool Patikrinimas(string kint)
+{
+    const int ilgis = kint.length();
+    char *temp_array = new char[ilgis + 1];
+    strcpy(temp_array, kint.c_str());
+    for (int i = 0; i < ilgis; i++)
+    {
+        if (!isalpha(temp_array[i]))
+            return false;
+    }
+    delete[] temp_array;
+    return true;
 }
 void Isvedimas(const vector<Mokinys> &A, int MOK_kiekis)
 {
