@@ -29,6 +29,10 @@ struct Mokinys
 bool Patikrinimas(string kint);
 void Vidurkis(vector<Mokinys> &A);
 void Isvedimas(const vector<Mokinys> &A, int MOK_kiekis);
+bool PagalVidurki(const Mokinys &a, const Mokinys &b);
+bool PagalMediana(const Mokinys &a, const Mokinys &b);
+bool PagalVarda(const Mokinys &a, const Mokinys &b);
+bool PagalPavarde(const Mokinys &a, const Mokinys &b);
 
 int main()
 {
@@ -134,9 +138,24 @@ int main()
         }
         fd.close();
         Vidurkis(A);
+        char kint;
+        cout << "Pagal ka rikiuoti: varda, pavarde, vidurki, mediana?(v, p, V, m)" << endl;
+        cin >> kint;
+        if (kint == 'V')
+        {
+            sort(A.begin(), A.end(), PagalVidurki);
+        }
+        else if (kint == 'm')
+        {
+            sort(A.begin(), A.end(), PagalMediana);
+        }
+        else if (kint == 'v')
+        {
+            sort(A.begin(), A.end(), PagalVarda);
+        }
+    }
     Isvedimas(A, A.size());
     return 0;
-}
 }
 
 void Vidurkis(vector<Mokinys> &A)
@@ -166,6 +185,22 @@ bool Patikrinimas(string kint)
     }
     delete[] temp_array;
     return true;
+}
+bool PagalVidurki(const Mokinys &a, const Mokinys &b)
+{
+    return a.VID > b.VID;
+}
+bool PagalMediana(const Mokinys &a, const Mokinys &b)
+{
+    return a.MED > b.MED;
+}
+bool PagalVarda(const Mokinys &a, const Mokinys &b)
+{
+    return a.vardas > b.vardas;
+}
+bool PagalPavarde(const Mokinys &a, const Mokinys &b)
+{
+    return a.pavarde > b.pavarde;
 }
 void Isvedimas(const vector<Mokinys> &A, int MOK_kiekis)
 {
