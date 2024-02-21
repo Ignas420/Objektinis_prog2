@@ -38,6 +38,8 @@ int main()
 {
     int n, m, kint;
     vector<Mokinys> A;
+    auto start = std::chrono::high_resolution_clock::now();
+    auto st = start;
     ifstream fd(CDfv);
     string eil;
     char input;
@@ -136,6 +138,8 @@ int main()
             temp.MED = mediana;
             A.push_back(temp);
         }
+        std::chrono::duration<double> diff = std::chrono::high_resolution_clock::now() - start;
+        cout << "Nuskaitymas uztruko: " << diff.count() << "s\n";
         fd.close();
         Vidurkis(A);
         char kint;
