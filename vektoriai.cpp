@@ -1,313 +1,230 @@
-#include <iostream>
-#include <fstream>
-#include <iomanip>
-#include <string>
-#include <vector>
-#include <sstream>
-#include <algorithm>
-#include <chrono>
-#include <cstring>
-
-using namespace std;
-
-const char CRfv[] = "rezultatai.txt";
-const char CDfv[] = "kursiokai.txt";
-//const char CDfv[] = "studentai10000.txt";
-//const char CDfv[] = "studentai100000.txt";
-//const char CDfv[] = "studentai1000000.txt";
-
-struct Mokinys
-{
-    string vardas;
-    string pavarde;
-    vector<int> ND;
-    int egzaminas;
-    double VID;
-    double MED;
-};
-
-bool Patikrinimas(string kint);
-void Vidurkis(vector<Mokinys> &A);
-void Isvedimas(const vector<Mokinys> &A, int MOK_kiekis);
-bool PagalVidurki(const Mokinys &a, const Mokinys &b);
-bool PagalMediana(const Mokinys &a, const Mokinys &b);
-bool PagalVarda(const Mokinys &a, const Mokinys &b);
-bool PagalPavarde(const Mokinys &a, const Mokinys &b);
+#include "mokinys.h"
 
 int main()
 {
-    int n, m, kint;
-    vector<Mokinys> A;
-    auto start = std::chrono::high_resolution_clock::now();
-    auto st = start;
-    ifstream fd(CDfv);
-    string eil;
-    char input;
+        int n, m, kint;
+        vector<Mokinys> A;
+        string eil;
+        char input;
 
-    cout << "Norite ivesti ar skaityti is failo?(i/s) ";
-    cin >> input;
-    if (input == 'i')
-    {
-        cout << "Norite ivesti ranka ar generuoti skaicius?(i/g) "<<endl;
+        cout << "Norite ivesti ar skaityti is failo?(i/s) ";
         cin >> input;
-        cout << "Irasykite kiek yra mokiniu: ";
-        cin >> m;
-        if(input == 'i'){
-        cout << "Iveskite vardus ir pavardes: " << endl;
-        kint = m;
-        Mokinys temp;
-        while (m != 0)
+        if (input == 'i')
         {
-            cin >> temp.vardas >> temp.pavarde;
-            if (!Patikrinimas(temp.vardas) || !Patikrinimas(temp.pavarde))
+            cout << "Norite ivesti ranka ar generuoti skaicius?(i/g) " << endl;
+            cin >> input;
+            if (input != 'i' || input != 'g')
             {
-                cout << "Ivestas netinkamas vardas arba pavarde" << endl;
-                return 0;
+                cout << ("Netinkama ivestis!");
+                return 1;
             }
-            A.push_back(temp);
-            m--;
-        }
-        cout << "Irasykite namu darbu kieki: " << endl;
-        cin >> n;
-        kint = n;
-
-        for (int i = 0; i < A.size(); i++) {
-    cout << "Irasykite namu darbu pazymius: " << endl;
-    for (int j = 0; j < n; j++) {
-        int pazymys;
-        cin >> pazymys;
-        A[i].ND.push_back(pazymys);
-        if (cin.fail()) {
-            cout << "Namu darbai turi buti skaicius!" << endl;
-            return 0;
-        }
-        if (pazymys < 1 || pazymys > 10) {
-            cout << "Pazymys turi buti desimtbaleje sistemoje!";
-            return 0;
-        }
-    }
-    cout << "Irasykite egzamino rezultata: " << endl;
-    cin >> A[i].egzaminas;
-    if (cin.fail()) {
-        cout << "Pazymys turi buti skaicius!" << endl;
-        return 0;
-    }
-    if (A[i].egzaminas < 1 || A[i].egzaminas > 10) {
-        cout << "Pazymys turi buti desimtbaleje sistemoje!";
-        return 0;
-    }
-    Vidurkis(A);
-    
-    sort(A[i].ND.begin(), A[i].ND.end());
-
-    vector<int> temp = A[i].ND;
-    temp.push_back(A[i].egzaminas);
-    sort(temp.begin(), temp.end());
-    double median = temp[temp.size() / 2];
-    if (temp.size() % 2 == 0)
-        median = (temp[temp.size() / 2 - 1] + temp[temp.size() / 2]) / 2.0;
-    A[i].MED = median;
-        }
-        }
-    else if(input == 'g'){
-        cout << "Iveskite vardus ir pavardes: " << endl;
-        kint = m;
-        Mokinys temp;
-        while (m != 0)
-        {
-            cin >> temp.vardas >> temp.pavarde;
-            if (!Patikrinimas(temp.vardas) || !Patikrinimas(temp.pavarde))
+            cout << "Irasykite kiek yra mokiniu: ";
+            cin >> m;
+            if (cin.fail())
             {
-                cout << "Ivestas netinkamas vardas arba pavarde" << endl;
-                return 0;
+                cout << ("Namu darbai turi buti skaicius!");
+                return 1;
             }
-            A.push_back(temp);
-            m--;
-        }
-        cout << "Irasykite namu darbu kieki: " << endl;
-        cin >> n;
-        kint = n;
-        cout << "Generuojami pazymiai..."<<endl;
-        for (int i = 0; i < A.size(); i++) {
-    for (int j = 0; j < n; j++) {
-        int pazymys;
-        pazymys = (rand() % 10) + 1;
-        A[i].ND.push_back(pazymys);
-        if (cin.fail()) {
-            cout << "Namu darbai turi buti skaicius!" << endl;
-            return 0;
-        }
-        if (pazymys < 1 || pazymys > 10) {
-            cout << "Pazymys turi buti desimtbaleje sistemoje!";
-            return 0;
-        }
-    }
-    A[i].egzaminas = (rand() % 10) + 1;;
-    if (cin.fail()) {
-        cout << "Pazymys turi buti skaicius!" << endl;
-        return 0;
-    }
-    if (A[i].egzaminas < 1 || A[i].egzaminas > 10) {
-        cout << "Pazymys turi buti desimtbaleje sistemoje!";
-        return 0;
-    }
-    Vidurkis(A);
-    
-    sort(A[i].ND.begin(), A[i].ND.end());
-
-    vector<int> temp = A[i].ND;
-    temp.push_back(A[i].egzaminas);
-    sort(temp.begin(), temp.end());
-    double median = temp[temp.size() / 2];
-    if (temp.size() % 2 == 0)
-        median = (temp[temp.size() / 2 - 1] + temp[temp.size() / 2]) / 2.0;
-    A[i].MED = median;
-        
-}
-        }
-    }
-    else if (input == 's')
-    {
-        getline(fd, eil);
-        while (getline(fd, eil))
-        {
-            istringstream iss(eil);
-            Mokinys temp;
-            iss >> temp.vardas >> temp.pavarde;
-            int pazymiai;
-            while (iss >> pazymiai)
-                temp.ND.push_back(pazymiai);
-
-            if (!temp.ND.empty())
+            if (input == 'i')
             {
-                temp.egzaminas = temp.ND.back();
-                temp.ND.pop_back();
-            }
-
-            sort(temp.ND.begin(), temp.ND.end());
-            double mediana;
-
-            if (!temp.ND.empty())
-            {
-                mediana = temp.ND[temp.ND.size() / 2];
-                if (temp.ND.size() % 2 == 0)
+                cout << "Iveskite vardus ir pavardes: " << endl;
+                kint = m;
+                Mokinys temp;
+                while (m != 0)
                 {
-                    mediana = (temp.ND[temp.ND.size() / 2 - 1] + temp.ND[temp.ND.size() / 2]) / 2.0;
+                    cin >> temp.vardas >> temp.pavarde;
+                    if (!Patikrinimas(temp.vardas) || !Patikrinimas(temp.pavarde))
+                    {
+                        cout << ("Ivestas netinkamas vardas arba pavarde!");
+                        return 1;
+                    }
+                    A.push_back(temp);
+                    m--;
+                }
+                cout << "Irasykite namu darbu kieki: " << endl;
+                cin >> n;
+                kint = n;
+
+                for (int i = 0; i < A.size(); i++)
+                {
+                    cout << "Irasykite namu darbu pazymius: " << endl;
+                    for (int j = 0; j < n; j++)
+                    {
+                        int pazymys;
+                        cin >> pazymys;
+                        A[i].ND.push_back(pazymys);
+                        if (cin.fail())
+                        {
+                            cout << ("Namu darbai turi buti skaicius!");
+                            return 1;
+                        }
+                        if (pazymys < 1 || pazymys > 10)
+                        {
+                            cout << ("Pazymys turi buti desimtbaleje sistemoje!");
+                            return 1;
+                        }
+                    }
+                    cout << "Irasykite egzamino rezultata: " << endl;
+                    cin >> A[i].egzaminas;
+                    if (cin.fail())
+                    {
+                        cout << ("Pazymys turi buti skaicius!");
+                        return 1;
+                    }
+                    if (A[i].egzaminas < 1 || A[i].egzaminas > 10)
+                    {
+                        cout << ("Pazymys turi buti desimtbaleje sistemoje!");
+                        return 1;
+                    }
+                    Vidurkis(A);
+
+                    sort(A[i].ND.begin(), A[i].ND.end());
+
+                    vector<int> temp = A[i].ND;
+                    temp.push_back(A[i].egzaminas);
+                    sort(temp.begin(), temp.end());
+                    double median = temp[temp.size() / 2];
+                    if (temp.size() % 2 == 0)
+                        median = (temp[temp.size() / 2 - 1] + temp[temp.size() / 2]) / 2.0;
+                    A[i].MED = median;
                 }
             }
-            temp.MED = mediana;
-            A.push_back(temp);
+            else if (input == 'g')
+            {
+                cout << "Iveskite vardus ir pavardes: " << endl;
+                kint = m;
+                Mokinys temp;
+                while (m != 0)
+                {
+                    cin >> temp.vardas >> temp.pavarde;
+                    if (!Patikrinimas(temp.vardas) || !Patikrinimas(temp.pavarde))
+                    {
+                        cout << ("Ivestas netinkamas vardas arba pavarde!");
+                        return 1;
+                    }
+                    A.push_back(temp);
+                    m--;
+                }
+                cout << "Irasykite namu darbu kieki: " << endl;
+                cin >> n;
+                kint = n;
+                cout << "Generuojami pazymiai..." << endl;
+                for (int i = 0; i < A.size(); i++)
+                {
+                    for (int j = 0; j < n; j++)
+                    {
+                        int pazymys;
+                        pazymys = (rand() % 10) + 1;
+                        A[i].ND.push_back(pazymys);
+                        if (cin.fail())
+                        {
+                            cout << ("Namu darbai turi buti skaicius!");
+                            return 1;
+                        }
+                        if (pazymys < 1 || pazymys > 10)
+                        {
+                            cout << ("Pazymys turi buti desimtbaleje sistemoje!");
+                            return 1;
+                        }
+                    }
+                    A[i].egzaminas = (rand() % 10) + 1;
+                    ;
+                    if (cin.fail())
+                    {
+                        cout << ("Pazymys turi buti skaicius!");
+                        return 1;
+                    }
+                    if (A[i].egzaminas < 1 || A[i].egzaminas > 10)
+                    {
+                        cout << ("Pazymys turi buti desimtbaleje sistemoje!");
+                        return 1;
+                    }
+                    Vidurkis(A);
+
+                    sort(A[i].ND.begin(), A[i].ND.end());
+
+                    vector<int> temp = A[i].ND;
+                    temp.push_back(A[i].egzaminas);
+                    sort(temp.begin(), temp.end());
+                    double median = temp[temp.size() / 2];
+                    if (temp.size() % 2 == 0)
+                        median = (temp[temp.size() / 2 - 1] + temp[temp.size() / 2]) / 2.0;
+                    A[i].MED = median;
+                }
+            }
         }
-        std::chrono::duration<double> diff = std::chrono::high_resolution_clock::now() - start;
-        cout << "Nuskaitymo laikas: " << diff.count() << "s\n";
-        fd.close();
-        Vidurkis(A);
-        char kint;
-        cout << "Pagal ka rikiuoti: varda, pavarde, vidurki, mediana?(v, p, V, m)" << endl;
-        cin >> kint;
-        if (kint == 'V')
+        else if (input == 's')
         {
-            sort(A.begin(), A.end(), PagalVidurki);
+            ifstream fd(CDfv);
+            auto start = std::chrono::high_resolution_clock::now();
+            auto st = start;
+            if (!fd)
+                throw runtime_error("Failas nurodytoje vietoje neegzistuoja!");
+
+            getline(fd, eil);
+            while (getline(fd, eil))
+            {
+                istringstream iss(eil);
+                Mokinys temp;
+                iss >> temp.vardas >> temp.pavarde;
+                int pazymiai;
+                while (iss >> pazymiai)
+                    temp.ND.push_back(pazymiai);
+
+                if (!temp.ND.empty())
+                {
+                    temp.egzaminas = temp.ND.back();
+                    temp.ND.pop_back();
+                }
+
+                sort(temp.ND.begin(), temp.ND.end());
+                double mediana;
+
+                if (!temp.ND.empty())
+                {
+                    mediana = temp.ND[temp.ND.size() / 2];
+                    if (temp.ND.size() % 2 == 0)
+                    {
+                        mediana = (temp.ND[temp.ND.size() / 2 - 1] + temp.ND[temp.ND.size() / 2]) / 2.0;
+                    }
+                }
+                temp.MED = mediana;
+                A.push_back(temp);
+            }
+            std::chrono::duration<double> diff = std::chrono::high_resolution_clock::now() - start;
+            cout << "Nuskaitymo laikas: " << diff.count() << "s\n";
+            fd.close();
+            Vidurkis(A);
+            char kint;
+            cout << "Pagal ka rikiuoti: varda, pavarde, vidurki, mediana?(v, p, V, m)" << endl;
+            cin >> kint;
+            if (kint == 'V')
+            {
+                sort(A.begin(), A.end(), PagalVidurki);
+            }
+            else if (kint == 'm')
+            {
+                sort(A.begin(), A.end(), PagalMediana);
+            }
+            else if (kint == 'v')
+            {
+                sort(A.begin(), A.end(), PagalVarda);
+            }
+            else if (kint == 'p')
+            {
+                sort(A.begin(), A.end(), PagalPavarde);
+            }
+            else
+            {
+                cout << ("Netinkama ivestis!");
+                return 1;
+            }
         }
-        else if (kint == 'm')
+        else
         {
-            sort(A.begin(), A.end(), PagalMediana);
+            cout << ("Netinkama ivestis!");
+            return 1;
         }
-        else if (kint == 'v')
-        {
-            sort(A.begin(), A.end(), PagalVarda);
-        }
-        else if (kint == 'p')
-        {
-            sort(A.begin(), A.end(), PagalPavarde);
-        }
-        else{
-            cout << "Netinkama ivestis!" << endl;
-            return 0;
-        }
-    }
-    else
-    {
-        cout << "Netinkama ivestis!" << endl;
+        Isvedimas(A, A.size());
         return 0;
-    }
-    Isvedimas(A, A.size());
-    return 0;
-}
-
-void Vidurkis(vector<Mokinys> &A)
-{
-    for (int i = 0; i < A.size(); i++)
-    {
-        Mokinys &mok = A[i];
-        double suma = 0;
-        for (int pazymys : mok.ND)
-        {
-            suma += pazymys;
-        }
-        suma += mok.egzaminas;
-        double vidurkis = suma / (mok.ND.size() + 1);
-        mok.VID = vidurkis;
-    }
-}
-bool PagalVidurki(const Mokinys &a, const Mokinys &b)
-{
-    return a.VID > b.VID;
-}
-bool PagalMediana(const Mokinys &a, const Mokinys &b)
-{
-    return a.MED > b.MED;
-}
-bool PagalVarda(const Mokinys &a, const Mokinys &b)
-{
-    return a.vardas > b.vardas;
-}
-bool PagalPavarde(const Mokinys &a, const Mokinys &b)
-{
-    return a.pavarde > b.pavarde;
-}
-bool Patikrinimas(string kint)
-{
-    const int ilgis = kint.length();
-    char *temp_array = new char[ilgis + 1];
-    strcpy(temp_array, kint.c_str());
-    for (int i = 0; i < ilgis; i++)
-    {
-        if (!isalpha(temp_array[i]))
-            return false;
-    }
-    delete[] temp_array;
-    return true;
-}
-void Isvedimas(const vector<Mokinys> &A, int MOK_kiekis)
-{
-    char kint;
-    cout << "Rezultatus matyti norite ekrane ar faile?(e/f): ";
-    cin >> kint;
-    if (kint == 'e')
-    {
-        cout << setw(20) << left << "Vardas" << setw(20) << left << "Pavardė" << setw(20) << right << "Galutinis (Vid.) / Galutinis(Med.)" << endl;
-        cout << setfill('-') << setw(80) << " " << endl;
-        cout << setfill(' ');
-
-        for (int i = 0; i < A.size(); i++)
-        {
-            cout << setw(20) << left << A[i].vardas << setw(20) << left << A[i].pavarde << right << fixed << setprecision(2) << A[i].VID << setw(18) << right << A[i].MED;
-            cout << endl;
-        }
-    }
-    else
-    {
-        ofstream fr(CRfv);
-        fr << setw(20) << left << "Vardas" << setw(20) << left << "Pavardė" << setw(20) << right << "Galutinis (Vid.) / Galutinis(Med.)" << endl;
-        fr << setfill('-') << setw(80) << " " << endl;
-        fr << setfill(' ');
-
-        for (int i = 0; i < A.size(); i++)
-        {
-            fr << setw(20) << left << A[i].vardas << setw(20) << left << A[i].pavarde << right << fixed << setprecision(2) << A[i].VID << setw(18) << right << A[i].MED;
-            fr << endl;
-        }
-        fr.close();
-    }
 }
