@@ -44,13 +44,15 @@ int main()
     string eil;
     char input;
 
-    cout << "Norite ivesti, ar skaityti is failo?(i/s) ";
+    cout << "Norite ivesti ar skaityti is failo?(i/s) ";
     cin >> input;
-
     if (input == 'i')
     {
+        cout << "Norite ivesti ranka ar generuoti skaicius?(i/g) "<<endl;
+        cin >> input;
         cout << "Irasykite kiek yra mokiniu: ";
         cin >> m;
+        if(input == 'i'){
         cout << "Iveskite vardus ir pavardes: " << endl;
         kint = m;
         Mokinys temp;
@@ -105,7 +107,64 @@ int main()
     if (temp.size() % 2 == 0)
         median = (temp[temp.size() / 2 - 1] + temp[temp.size() / 2]) / 2.0;
     A[i].MED = median;
+        }
+        }
+    else if(input == 'g'){
+        cout << "Iveskite vardus ir pavardes: " << endl;
+        kint = m;
+        Mokinys temp;
+        while (m != 0)
+        {
+            cin >> temp.vardas >> temp.pavarde;
+            if (!Patikrinimas(temp.vardas) || !Patikrinimas(temp.pavarde))
+            {
+                cout << "Ivestas netinkamas vardas arba pavarde" << endl;
+                return 0;
+            }
+            A.push_back(temp);
+            m--;
+        }
+        cout << "Irasykite namu darbu kieki: " << endl;
+        cin >> n;
+        kint = n;
+        cout << "Generuojami pazymiai..."<<endl;
+        for (int i = 0; i < A.size(); i++) {
+    for (int j = 0; j < n; j++) {
+        int pazymys;
+        pazymys = (rand() % 10) + 1;
+        A[i].ND.push_back(pazymys);
+        if (cin.fail()) {
+            cout << "Namu darbai turi buti skaicius!" << endl;
+            return 0;
+        }
+        if (pazymys < 1 || pazymys > 10) {
+            cout << "Pazymys turi buti desimtbaleje sistemoje!";
+            return 0;
+        }
+    }
+    A[i].egzaminas = (rand() % 10) + 1;;
+    if (cin.fail()) {
+        cout << "Pazymys turi buti skaicius!" << endl;
+        return 0;
+    }
+    if (A[i].egzaminas < 1 || A[i].egzaminas > 10) {
+        cout << "Pazymys turi buti desimtbaleje sistemoje!";
+        return 0;
+    }
+    Vidurkis(A);
+    
+    sort(A[i].ND.begin(), A[i].ND.end());
+
+    vector<int> temp = A[i].ND;
+    temp.push_back(A[i].egzaminas);
+    sort(temp.begin(), temp.end());
+    double median = temp[temp.size() / 2];
+    if (temp.size() % 2 == 0)
+        median = (temp[temp.size() / 2 - 1] + temp[temp.size() / 2]) / 2.0;
+    A[i].MED = median;
+        
 }
+        }
     }
     else if (input == 's')
     {
@@ -140,7 +199,7 @@ int main()
             A.push_back(temp);
         }
         std::chrono::duration<double> diff = std::chrono::high_resolution_clock::now() - start;
-        cout << "Nuskaitymas uztruko: " << diff.count() << "s\n";
+        cout << "Nuskaitymo laikas: " << diff.count() << "s\n";
         fd.close();
         Vidurkis(A);
         char kint;
