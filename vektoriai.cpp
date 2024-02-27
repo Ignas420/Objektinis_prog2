@@ -2,6 +2,8 @@
 
 int main()
 {
+    try
+    {
         int n, m, kint;
         vector<Mokinys> A;
         string eil;
@@ -15,14 +17,14 @@ int main()
             cin >> input;
             if (input != 'i' || input != 'g')
             {
-                cout << ("Netinkama ivestis!");
+                throw runtime_error("Netinkama ivestis!");
                 return 1;
             }
             cout << "Irasykite kiek yra mokiniu: ";
             cin >> m;
             if (cin.fail())
             {
-                cout << ("Namu darbai turi buti skaicius!");
+                throw runtime_error("Namu darbai turi buti skaicius!");
                 return 1;
             }
             if (input == 'i')
@@ -35,7 +37,7 @@ int main()
                     cin >> temp.vardas >> temp.pavarde;
                     if (!Patikrinimas(temp.vardas) || !Patikrinimas(temp.pavarde))
                     {
-                        cout << ("Ivestas netinkamas vardas arba pavarde!");
+                        throw runtime_error("Ivestas netinkamas vardas arba pavarde!");
                         return 1;
                     }
                     A.push_back(temp);
@@ -55,12 +57,12 @@ int main()
                         A[i].ND.push_back(pazymys);
                         if (cin.fail())
                         {
-                            cout << ("Namu darbai turi buti skaicius!");
+                            throw runtime_error("Namu darbai turi buti skaicius!");
                             return 1;
                         }
                         if (pazymys < 1 || pazymys > 10)
                         {
-                            cout << ("Pazymys turi buti desimtbaleje sistemoje!");
+                            throw runtime_error("Pazymys turi buti desimtbaleje sistemoje!");
                             return 1;
                         }
                     }
@@ -68,12 +70,12 @@ int main()
                     cin >> A[i].egzaminas;
                     if (cin.fail())
                     {
-                        cout << ("Pazymys turi buti skaicius!");
+                        throw runtime_error("Pazymys turi buti skaicius!");
                         return 1;
                     }
                     if (A[i].egzaminas < 1 || A[i].egzaminas > 10)
                     {
-                        cout << ("Pazymys turi buti desimtbaleje sistemoje!");
+                        throw runtime_error("Pazymys turi buti desimtbaleje sistemoje!");
                         return 1;
                     }
                     Vidurkis(A);
@@ -99,7 +101,7 @@ int main()
                     cin >> temp.vardas >> temp.pavarde;
                     if (!Patikrinimas(temp.vardas) || !Patikrinimas(temp.pavarde))
                     {
-                        cout << ("Ivestas netinkamas vardas arba pavarde!");
+                        throw runtime_error("Ivestas netinkamas vardas arba pavarde!");
                         return 1;
                     }
                     A.push_back(temp);
@@ -118,12 +120,12 @@ int main()
                         A[i].ND.push_back(pazymys);
                         if (cin.fail())
                         {
-                            cout << ("Namu darbai turi buti skaicius!");
+                            throw runtime_error("Namu darbai turi buti skaicius!");
                             return 1;
                         }
                         if (pazymys < 1 || pazymys > 10)
                         {
-                            cout << ("Pazymys turi buti desimtbaleje sistemoje!");
+                            throw runtime_error("Pazymys turi buti desimtbaleje sistemoje!");
                             return 1;
                         }
                     }
@@ -131,12 +133,12 @@ int main()
                     ;
                     if (cin.fail())
                     {
-                        cout << ("Pazymys turi buti skaicius!");
+                        throw runtime_error("Pazymys turi buti skaicius!");
                         return 1;
                     }
                     if (A[i].egzaminas < 1 || A[i].egzaminas > 10)
                     {
-                        cout << ("Pazymys turi buti desimtbaleje sistemoje!");
+                        throw runtime_error("Pazymys turi buti desimtbaleje sistemoje!");
                         return 1;
                     }
                     Vidurkis(A);
@@ -216,15 +218,21 @@ int main()
             }
             else
             {
-                cout << ("Netinkama ivestis!");
+                throw runtime_error("Netinkama ivestis!");
                 return 1;
             }
         }
         else
         {
-            cout << ("Netinkama ivestis!");
+            throw runtime_error("Netinkama ivestis!");
             return 1;
         }
         Isvedimas(A, A.size());
         return 0;
+    }
+    catch (exception &e)
+    {
+        cout << "Klaida: " << e.what() << endl;
+        return 0;
+    }
 }
