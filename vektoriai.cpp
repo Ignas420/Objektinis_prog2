@@ -15,11 +15,6 @@ int main()
         {
             cout << "Norite ivesti ranka ar generuoti skaicius?(i/g) " << endl;
             cin >> input;
-            if (input != 'i' || input != 'g')
-            {
-                throw runtime_error("Netinkama ivestis!");
-                return 1;
-            }
             cout << "Irasykite kiek yra mokiniu: ";
             cin >> m;
             if (cin.fail())
@@ -162,7 +157,6 @@ int main()
             auto st = start;
             if (!fd)
                 throw runtime_error("Failas nurodytoje vietoje neegzistuoja!");
-
             getline(fd, eil);
             while (getline(fd, eil))
             {
