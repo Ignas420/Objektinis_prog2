@@ -11,15 +11,14 @@
 #include <chrono>
 #include <cstring>
 #include <stdexcept>
-#include "mokinys.h"
 
 using namespace std;
 
 const char CRfv[] = "rezultatai.txt";
-//const char CDfv[] = "kursiokai.txt";
+const char CDfv[] = "kursiokai.txt";
 //const char CDfv[] = "studentai10000.txt";
 //const char CDfv[] = "studentai100000.txt";
-const char CDfv[] = "studentai1000000.txt";
+//const char CDfv[] = "studentai1000000.txt";
 
 struct Mokinys
 {
@@ -38,6 +37,5 @@ bool PagalVidurki(const Mokinys &a, const Mokinys &b);
 bool PagalMediana(const Mokinys &a, const Mokinys &b);
 bool PagalVarda(const Mokinys &a, const Mokinys &b);
 bool PagalPavarde(const Mokinys &a, const Mokinys &b);
-bool FileExists(const string &filename);
 
 #endif
