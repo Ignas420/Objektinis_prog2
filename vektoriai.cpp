@@ -1,4 +1,5 @@
 #include "mokinys.h"
+#include "funkcijos.h"
 
 int main()
 {
