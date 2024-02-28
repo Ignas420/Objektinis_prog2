@@ -57,7 +57,7 @@ void Isvedimas(const vector<Mokinys> &A, int MOK_kiekis)
     cin >> kint;
     if (kint == 'e')
     {
-        cout << setw(20) << left << "Vardas" << setw(20) << left << "Pavardė" << setw(20) << right << "Galutinis (Vid.) / Galutinis(Med.)" << endl;
+        cout << setw(20) << left << "Vardas" << setw(20) << left << "Pavarde" << setw(20) << right << "Galutinis (Vid.) / Galutinis(Med.)" << endl;
         cout << setfill('-') << setw(80) << " " << endl;
         cout << setfill(' ');
 
@@ -67,10 +67,10 @@ void Isvedimas(const vector<Mokinys> &A, int MOK_kiekis)
             cout << endl;
         }
     }
-    else
+    else if (kint == 'f')
     {
         ofstream fr(CRfv);
-        fr << setw(20) << left << "Vardas" << setw(20) << left << "Pavardė" << setw(20) << right << "Galutinis (Vid.) / Galutinis(Med.)" << endl;
+        fr << setw(20) << left << "Vardas" << setw(20) << left << "Pavarde" << setw(20) << right << "Galutinis (Vid.) / Galutinis(Med.)" << endl;
         fr << setfill('-') << setw(80) << " " << endl;
         fr << setfill(' ');
 
@@ -81,4 +81,6 @@ void Isvedimas(const vector<Mokinys> &A, int MOK_kiekis)
         }
         fr.close();
     }
+    else
+        throw runtime_error("Netinkama ivestis!");
 }

@@ -7,23 +7,23 @@ int main()
         int n, m, kint;
         vector<Mokinys> A;
         string eil;
-        char input;
+        char input, input2;
 
         cout << "Norite ivesti ar skaityti is failo?(i/s) ";
         cin >> input;
         if (input == 'i')
         {
             cout << "Norite ivesti ranka ar generuoti skaicius?(i/g) " << endl;
-            cin >> input;
-            cout << "Irasykite kiek yra mokiniu: ";
-            cin >> m;
-            if (cin.fail())
+            cin >> input2;
+            if (input2 == 'i')
             {
-                throw runtime_error("Namu darbai turi buti skaicius!");
-                return 1;
-            }
-            if (input == 'i')
-            {
+                cout << "Irasykite kiek yra mokiniu: ";
+                cin >> m;
+                if (cin.fail())
+                {
+                    throw runtime_error("Kiekis turi buti skaicius!");
+                    return 1;
+                }
                 cout << "Iveskite vardus ir pavardes: " << endl;
                 kint = m;
                 Mokinys temp;
@@ -86,8 +86,15 @@ int main()
                     A[i].MED = median;
                 }
             }
-            else if (input == 'g')
+            else if (input2 == 'g')
             {
+                cout << "Irasykite kiek yra mokiniu: ";
+                cin >> m;
+                if (cin.fail())
+                {
+                    throw runtime_error("Kiekis turi buti skaicius!");
+                    return 1;
+                }
                 cout << "Iveskite vardus ir pavardes: " << endl;
                 kint = m;
                 Mokinys temp;
@@ -148,6 +155,11 @@ int main()
                         median = (temp[temp.size() / 2 - 1] + temp[temp.size() / 2]) / 2.0;
                     A[i].MED = median;
                 }
+            }
+            else
+            {
+                throw runtime_error("Netinkama ivestis!");
+                return 1;
             }
         }
         else if (input == 's')
