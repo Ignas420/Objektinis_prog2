@@ -15,10 +15,11 @@
 using namespace std;
 
 const char CRfv[] = "rezultatai.txt";
-const char CDfv[] = "C:/programos/0.3/Objektinis_prog/kursiokai.txt";
-//const char CDfv[] = "studentai10000.txt";
-//const char CDfv[] = "studentai100000.txt";
-//const char CDfv[] = "studentai1000000.txt";
+const char CDfv[] = "kursiokai.txt";
+const char CRfv2[] = "kursiokai2.txt";
+//string CDfv[] = "studentai10000.txt";
+//string CDfv[] = "studentai100000.txt";
+//string CDfv[] = "studentai1000000.txt";
 
 struct Mokinys
 {

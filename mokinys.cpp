@@ -49,6 +49,37 @@ bool PagalPavarde(const Mokinys &a, const Mokinys &b)
 {
     return a.pavarde > b.pavarde;
 }
+void FailuGeneravimas(){
+    ofstream fr(CRfv2);
+
+    if(!fr.is_open())
+        throw runtime_error("Failas nurodytoje vietoje neegzistuoja!");
+    
+    int nd;
+    cout << "Iveskite namu darbu kieki: " << endl;
+    cin >> nd;
+    if(cin.fail())
+        throw runtime_error("Namu darbai turi buti skaicius!");
+    
+    fr << setw(20) << left << "Vardas" << setw(20) << left << "Pavarde";
+    for(int i=0; i<nd; i++)
+        fr << setw(10) << left << "ND";
+    fr << setw(10) << left << "Egz." << endl;
+
+    int irasai;
+    cout << "Iveskite irasu skaiciu: " << endl;
+    cin >> irasai;
+
+    for(int j=1; j<=irasai; j++){
+        fr << setw(20) << left << ("Vardas"+to_string(j)) << setw(20) << left << ("Pavarde"+to_string(j));
+        for(int i=0; i<nd; i++)
+            fr << setw(10) << left << rand()%10+1;
+        fr << setw(10) << left << rand()%10+1 << endl;
+    }
+    fr.close();
+    
+
+}
 
 void Isvedimas(const vector<Mokinys> &A, int MOK_kiekis)
 {

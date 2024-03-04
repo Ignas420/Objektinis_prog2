@@ -9,7 +9,8 @@ int main()
         vector<Mokinys> A;
         string eil;
         char input, input2;
-
+        FailuGeneravimas();
+        return 0;
         cout << "Norite ivesti ar skaityti is failo?(i/s) ";
         cin >> input;
         if (input == 'i')
