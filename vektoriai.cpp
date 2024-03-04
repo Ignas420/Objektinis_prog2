@@ -174,7 +174,7 @@ int main()
                 FailuGeneravimas();
                 failas = CRfv2;
             }
-            if (input3 == 'n')
+            else if (input3 == 'n')
                 failas = CDfv;
             else
                 throw runtime_error("Netinkama ivestis!");
@@ -255,19 +255,24 @@ int main()
             {
                 if (kint == 'V')
                 {
-                    sort(A.begin(), A.end(), PagalVidurki);
+                    sort(Mokslinciai.begin(), Mokslinciai.end(), PagalVidurki);
+                    sort(Nuskriaustieji.begin(), Nuskriaustieji.end(), PagalVidurki);
                 }
                 else if (kint == 'm')
                 {
-                    sort(A.begin(), A.end(), PagalMediana);
+                    sort(Mokslinciai.begin(), Mokslinciai.end(), PagalMediana);
+                    sort(Nuskriaustieji.begin(), Nuskriaustieji.end(), PagalMediana);
+
                 }
                 else if (kint == 'v')
                 {
-                    sort(A.begin(), A.end(), PagalVarda);
+                    sort(Mokslinciai.begin(), Mokslinciai.end(), PagalVarda);
+                    sort(Nuskriaustieji.begin(), Nuskriaustieji.end(), PagalVarda);
                 }
                 else if (kint == 'p')
                 {
-                    sort(A.begin(), A.end(), PagalPavarde);
+                    sort(Mokslinciai.begin(), Mokslinciai.end(), PagalPavarde);
+                    sort(Nuskriaustieji.begin(), Nuskriaustieji.end(), PagalPavarde);
                 }
                 else
                 {
