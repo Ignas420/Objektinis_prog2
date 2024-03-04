@@ -7,11 +7,11 @@ int main()
     {
         int n, m, kint;
         vector<Mokinys> A;
+        vector<Mokinys> Mokslinciai;
+        vector<Mokinys> Nuskriaustieji;
         string eil;
-        char input, input2;
-        FailuGeneravimas();
-        return 0;
-        cout << "Norite ivesti ar skaityti is failo?(i/s) ";
+        char input, input2, input3;
+        cout << "Norite ivesti ar skaityti is failo?(i/s) " << endl;
         cin >> input;
         if (input == 'i')
         {
@@ -166,7 +166,19 @@ int main()
         }
         else if (input == 's')
         {
-            ifstream fd(CDfv);
+            string failas;
+            cout << "Ar norite generuoti nauja faila?(t/n) " << endl;
+            cin >> input3;
+            if (input3 == 't')
+            {
+                FailuGeneravimas();
+                failas = CRfv2;
+            }
+            if (input3 == 'n')
+                failas = CDfv;
+            else
+                throw runtime_error("Netinkama ivestis!");
+            ifstream fd(failas);
             auto start = std::chrono::high_resolution_clock::now();
             auto st = start;
             if (!fd)
@@ -205,37 +217,103 @@ int main()
             cout << "Nuskaitymo laikas: " << diff.count() << "s\n";
             fd.close();
             Vidurkis(A);
+            if (input3 == 't')
+            {
+                char input4;
+                cout << "Isrinkti mokinius pagal vidurki ar mediana?(V, M) " << endl;
+                cin >> input4;
+                if (input4 == 'V')
+                {
+                    for (int i = 0; i < A.size(); i++)
+                    {
+                        if (A[i].VID < 5.0)
+                            Nuskriaustieji.push_back(A[i]);
+                        else
+                            Mokslinciai.push_back(A[i]);
+                    }
+                }
+                else if (input4 == 'M')
+                {
+                    for (int i = 0; i < A.size(); i++)
+                    {
+                        if (A[i].MED < 5.0)
+                            Nuskriaustieji.push_back(A[i]);
+                        else
+                            Mokslinciai.push_back(A[i]);
+                    }
+                }
+                else
+                    throw runtime_error("Netinkama ivestis!");
+
+                Isvedimas(Mokslinciai, Mokslinciai.size(), CRfv3);
+                Isvedimas(Nuskriaustieji, Nuskriaustieji.size(), CRfv4);
+            }
             char kint;
             cout << "Pagal ka rikiuoti: varda, pavarde, vidurki, mediana?(v, p, V, m)" << endl;
             cin >> kint;
-            if (kint == 'V')
+            if (input3 == 't')
             {
-                sort(A.begin(), A.end(), PagalVidurki);
+                if (kint == 'V')
+                {
+                    sort(A.begin(), A.end(), PagalVidurki);
+                }
+                else if (kint == 'm')
+                {
+                    sort(A.begin(), A.end(), PagalMediana);
+                }
+                else if (kint == 'v')
+                {
+                    sort(A.begin(), A.end(), PagalVarda);
+                }
+                else if (kint == 'p')
+                {
+                    sort(A.begin(), A.end(), PagalPavarde);
+                }
+                else
+                {
+                    throw runtime_error("Netinkama ivestis!");
+                    return 1;
+                }
             }
-            else if (kint == 'm')
+            else if (input3 == 'n')
             {
-                sort(A.begin(), A.end(), PagalMediana);
-            }
-            else if (kint == 'v')
-            {
-                sort(A.begin(), A.end(), PagalVarda);
-            }
-            else if (kint == 'p')
-            {
-                sort(A.begin(), A.end(), PagalPavarde);
+                if (kint == 'V')
+                {
+                    sort(A.begin(), A.end(), PagalVidurki);
+                }
+                else if (kint == 'm')
+                {
+                    sort(A.begin(), A.end(), PagalMediana);
+                }
+                else if (kint == 'v')
+                {
+                    sort(A.begin(), A.end(), PagalVarda);
+                }
+                else if (kint == 'p')
+                {
+                    sort(A.begin(), A.end(), PagalPavarde);
+                }
+                else
+                {
+                    throw runtime_error("Netinkama ivestis!");
+                    return 1;
+                }
             }
             else
-            {
-                throw runtime_error("Netinkama ivestis!");
-                return 1;
-            }
+                {
+                    throw runtime_error("Netinkama ivestis!");
+                    return 1;
+                }
         }
         else
         {
             throw runtime_error("Netinkama ivestis!");
             return 1;
         }
-        Isvedimas(A, A.size());
+        if (input3 == 't')
+            return 0;
+        else
+            Isvedimas(A, A.size(), CRfv);
         return 0;
     }
     catch (exception &e)

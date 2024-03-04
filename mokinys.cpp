@@ -50,6 +50,7 @@ bool PagalPavarde(const Mokinys &a, const Mokinys &b)
     return a.pavarde > b.pavarde;
 }
 void FailuGeneravimas(){
+    cout << "Naujo failo parametrai: " << endl;
     ofstream fr(CRfv2);
 
     if(!fr.is_open())
@@ -77,11 +78,9 @@ void FailuGeneravimas(){
         fr << setw(10) << left << rand()%10+1 << endl;
     }
     fr.close();
-    
-
 }
 
-void Isvedimas(const vector<Mokinys> &A, int MOK_kiekis)
+void Isvedimas(const vector<Mokinys> &A, int MOK_kiekis, string isvedimas)
 {
     char kint;
     cout << "Rezultatus matyti norite ekrane ar faile?(e/f): ";
@@ -92,7 +91,7 @@ void Isvedimas(const vector<Mokinys> &A, int MOK_kiekis)
         cout << setfill('-') << setw(80) << " " << endl;
         cout << setfill(' ');
 
-        for (int i = 0; i < A.size(); i++)
+        for (int i = 0; i < MOK_kiekis; i++)
         {
             cout << setw(20) << left << A[i].vardas << setw(20) << left << A[i].pavarde << right << fixed << setprecision(2) << A[i].VID << setw(18) << right << A[i].MED;
             cout << endl;
@@ -100,12 +99,12 @@ void Isvedimas(const vector<Mokinys> &A, int MOK_kiekis)
     }
     else if (kint == 'f')
     {
-        ofstream fr(CRfv);
+        ofstream fr(isvedimas);
         fr << setw(20) << left << "Vardas" << setw(20) << left << "Pavarde" << setw(20) << right << "Galutinis (Vid.) / Galutinis(Med.)" << endl;
         fr << setfill('-') << setw(80) << " " << endl;
         fr << setfill(' ');
 
-        for (int i = 0; i < A.size(); i++)
+        for (int i = 0; i < MOK_kiekis; i++)
         {
             fr << setw(20) << left << A[i].vardas << setw(20) << left << A[i].pavarde << right << fixed << setprecision(2) << A[i].VID << setw(18) << right << A[i].MED;
             fr << endl;
