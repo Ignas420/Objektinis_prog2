@@ -222,6 +222,8 @@ int main()
                 char input4;
                 cout << "Isrinkti mokinius pagal vidurki ar mediana?(V, M) " << endl;
                 cin >> input4;
+                auto start = std::chrono::high_resolution_clock::now();
+                auto st = start;
                 if (input4 == 'V')
                 {
                     for (int i = 0; i < A.size(); i++)
@@ -244,8 +246,11 @@ int main()
                 }
                 else
                     throw runtime_error("Netinkama ivestis!");
-
+                std::chrono::duration<double> diff = std::chrono::high_resolution_clock::now() - start;
+                cout << "Studentu rusiavimas uztruko: " << diff.count() << "s\n";
+                cout << "~Mokslinciai~"<<endl;
                 Isvedimas(Mokslinciai, Mokslinciai.size(), CRfv3);
+                cout << "~Nuskriaustieji~"<<endl;
                 Isvedimas(Nuskriaustieji, Nuskriaustieji.size(), CRfv4);
             }
             char kint;

@@ -19,8 +19,8 @@ const char CRfv2[] = "rezultatai2.txt";
 const char CRfv3[] = "mokslinciai.txt";
 const char CRfv4[] = "nuskriaustieji.txt";
 
-const char CDfv[] = "kursiokai.txt";
-//cosnt char CDfv[] = "studentai10000.txt";
+//const char CDfv[] = "kursiokai.txt";
+const char CDfv[] = "studentai10000.txt";
 //const char CDfv[] = "studentai100000.txt";
 //const char CDfv[] = "studentai1000000.txt";
 
