@@ -92,6 +92,8 @@ void Isvedimas(const vector<Mokinys> &A, int MOK_kiekis, string isvedimas)
     cin >> kint;
     if (kint == 'e')
     {
+        auto start = std::chrono::high_resolution_clock::now();
+        auto st = start;
         cout << setw(20) << left << "Vardas" << setw(20) << left << "Pavarde" << setw(20) << right << "Galutinis (Vid.) / Galutinis(Med.)" << endl;
         cout << setfill('-') << setw(80) << " " << endl;
         cout << setfill(' ');
@@ -101,9 +103,13 @@ void Isvedimas(const vector<Mokinys> &A, int MOK_kiekis, string isvedimas)
             cout << setw(20) << left << A[i].vardas << setw(20) << left << A[i].pavarde << right << fixed << setprecision(2) << A[i].VID << setw(18) << right << A[i].MED;
             cout << endl;
         }
+        std::chrono::duration<double> diff = std::chrono::high_resolution_clock::now() - start;
+        cout << "Studentu isvedimas ekrane uztruko: " << diff.count() << "s\n";
     }
     else if (kint == 'f')
     {
+        auto start = std::chrono::high_resolution_clock::now();
+        auto st = start;
         ofstream fr(isvedimas);
         fr << setw(20) << left << "Vardas" << setw(20) << left << "Pavarde" << setw(20) << right << "Galutinis (Vid.) / Galutinis(Med.)" << endl;
         fr << setfill('-') << setw(80) << " " << endl;
@@ -115,6 +121,8 @@ void Isvedimas(const vector<Mokinys> &A, int MOK_kiekis, string isvedimas)
             fr << endl;
         }
         fr.close();
+        std::chrono::duration<double> diff = std::chrono::high_resolution_clock::now() - start;
+        cout << "Studentu isvedimas i failus uztruko: " << diff.count() << "s\n";
     }
     else
         throw runtime_error("Netinkama ivestis!");

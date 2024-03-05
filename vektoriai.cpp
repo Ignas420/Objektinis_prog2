@@ -166,6 +166,8 @@ int main()
         }
         else if (input == 's')
         {
+            auto start1 = std::chrono::high_resolution_clock::now();
+            auto st1 = start1;
             string failas;
             cout << "Ar norite generuoti nauja faila?(t/n) " << endl;
             cin >> input3;
@@ -179,11 +181,11 @@ int main()
             else
                 throw runtime_error("Netinkama ivestis!");
             ifstream fd(failas);
-            auto start = std::chrono::high_resolution_clock::now();
-            auto st = start;
             if (!fd)
                 throw runtime_error("Failas nurodytoje vietoje neegzistuoja!");
             getline(fd, eil);
+            auto start = std::chrono::high_resolution_clock::now();
+            auto st = start;
             while (getline(fd, eil))
             {
                 istringstream iss(eil);
@@ -222,8 +224,8 @@ int main()
                 char input4;
                 cout << "Isrinkti mokinius pagal vidurki ar mediana?(V, M) " << endl;
                 cin >> input4;
-                auto start = std::chrono::high_resolution_clock::now();
-                auto st = start;
+                start = std::chrono::high_resolution_clock::now();
+                st = start;
                 if (input4 == 'V')
                 {
                     for (int i = 0; i < A.size(); i++)
@@ -246,8 +248,9 @@ int main()
                 }
                 else
                     throw runtime_error("Netinkama ivestis!");
-                std::chrono::duration<double> diff = std::chrono::high_resolution_clock::now() - start;
+                diff = std::chrono::high_resolution_clock::now() - start;
                 cout << "Studentu rusiavimas uztruko: " << diff.count() << "s\n";
+
                 cout << "~Mokslinciai~"<<endl;
                 Isvedimas(Mokslinciai, Mokslinciai.size(), CRfv3);
                 cout << "~Nuskriaustieji~"<<endl;
@@ -314,6 +317,8 @@ int main()
                     throw runtime_error("Netinkama ivestis!");
                     return 1;
                 }
+            std::chrono::duration<double> diff1 = std::chrono::high_resolution_clock::now() - start1;
+            cout << "Programa uztruko: " << diff1.count() << "s\n";
         }
         else
         {
