@@ -4,10 +4,10 @@ Programa leidžia vartotojui įvesti studentų duomenis ranka arba sugeneruoti a
 
 Kaip naudoti šią programą?
 1. Paleiskite programą.
-2. Pasirinkite ar norite įvesti studentų duomenis ranka ar skaityti faila.
+2. Pasirinkite ar norite įvesti studentų duomenis ranka ar skaityti failą.
 3. Pasirinkite ar norite generuoti naujus failus.
 5. Jei pasirinkote skaityti duomenis iš failo, pasirinktas failas bus nuskaitomas ir išvedami duomenys.
-6. Jei pasirinkote generuoti naujus failus, bus sugeneruoti nauji failai (pagal vector IrasuSk elementu skaičių ir elementus vekotiuje).
+6. Jei pasirinkote generuoti naujus failus, bus sugeneruoti nauji failai (pagal vector IrasuSk elementu skaičių ir elementus vektoriuje).
 7. Sugeneruoti failai bus išskirti į papildomus du failus, Nuskriaustieji(index) ir Mokslinčiai(index) pagal vidurkį arba medianą.
 8. Abiejais atvejais bus klausiama naudotojo kaip norima rikiuoti failu duomenis.
 9. Galiausiai bus išvesti failai su surikiuotais duomenimis.
