@@ -174,9 +174,8 @@ int main()
             int temp;
             cout << "Ar norite generuoti naujus failus?(t/n) " << endl;
             cin >> input3;
-            if (input3 == 't'){
+            if (input3 == 't')
                 GeneruotiFailus(Nuskriaustieji, Mokslinciai, IrasuSk, A);
-            }
             else if (input3 == 'n')
             {
                 failas = CDfv;
@@ -186,10 +185,7 @@ int main()
                 throw runtime_error("Netinkama ivestis!");
             Vidurkis(A);
 
-            char kint;
-            cout << "Pagal ka rikiuoti: varda, pavarde, vidurki, mediana?(v, p, V, m)" << endl;
-            cin >> kint;
-            if (input3 == 't')
+            /* if (input3 == 't')
             {
                 if (kint == 'V')
                 {
@@ -216,9 +212,12 @@ int main()
                     throw runtime_error("Netinkama ivestis!");
                     return 1;
                 }
-            }
-            else if (input3 == 'n')
+            } */
+            if (input3 == 'n')
             {
+                char kint;
+                cout << "Pagal ka rikiuoti: varda, pavarde, vidurki, mediana?(v, p, V, m)" << endl;
+                cin >> kint;
                 if (kint == 'V')
                 {
                     sort(A.begin(), A.end(), PagalVidurki);
@@ -240,11 +239,6 @@ int main()
                     throw runtime_error("Netinkama ivestis!");
                     return 1;
                 }
-            }
-            else
-            {
-                throw runtime_error("Netinkama ivestis!");
-                return 1;
             }
             std::chrono::duration<double> diff1 = std::chrono::high_resolution_clock::now() - start1;
             if (input3 == 'n')

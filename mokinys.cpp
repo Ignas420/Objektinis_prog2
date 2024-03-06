@@ -85,14 +85,18 @@ bool PagalPavarde(const Mokinys &a, const Mokinys &b)
     std::chrono::duration<double> diff = std::chrono::high_resolution_clock::now() - start;
     cout << "Failo is "+ to_string(irasai) + " sukurimo laikas: " << diff.count() << "s\n";
 } */
-void GeneruotiFailus(vector<Mokinys> Nuskriaustieji, vector<Mokinys> Mokslinciai, vector<int> IrasuSk, vector<Mokinys> A)
+
+void GeneruotiFailus(vector<Mokinys>& Nuskriaustieji, vector<Mokinys>& Mokslinciai, vector<int>& IrasuSk, vector<Mokinys>& A)
 {
-    auto start = std::chrono::high_resolution_clock::now();
-    auto st = start;
     srand(time(NULL));
 
     for (int i = 0; i < IrasuSk.size(); i++)
     {
+        auto start1 = std::chrono::high_resolution_clock::now();
+        auto st1 = start1;
+
+        auto start = std::chrono::high_resolution_clock::now();
+        auto st = start;
         cout << "~FAILAS " + to_string(i) + "~" << endl;
         string filename = "failas" + to_string(i) + ".txt";
         ofstream fr(filename);
@@ -117,11 +121,15 @@ void GeneruotiFailus(vector<Mokinys> Nuskriaustieji, vector<Mokinys> Mokslinciai
 
         fr.close();
         std::chrono::duration<double> diff = std::chrono::high_resolution_clock::now() - start;
-        cout << "Failo_"+ to_string(i) +" kurimo laikas: " << diff.count() << "s\n";
+        cout << "Failo " + to_string(i) + " kurimo laikas: " << diff.count() << "s\n";
+
         Skaitymas(Nuskriaustieji, Mokslinciai, IrasuSk, filename, A, i);
+
+        std::chrono::duration<double> diff1 = std::chrono::high_resolution_clock::now() - start1;
+        cout << "Visa programa " + to_string(i) + " uztruko: " << diff.count() << "s\n";
     }
 }
-void Skaitymas(vector<Mokinys> Nuskriaustieji, vector<Mokinys> Mokslinciai, vector<int> IrasuSk, string failas, vector<Mokinys> A, int &temp)
+void Skaitymas(vector<Mokinys>& Nuskriaustieji, vector<Mokinys>& Mokslinciai, vector<int>& IrasuSk, string failas, vector<Mokinys>& A, int& temp)
 {
     string eil;
     ifstream fd(failas);
@@ -165,7 +173,7 @@ void Skaitymas(vector<Mokinys> Nuskriaustieji, vector<Mokinys> Mokslinciai, vect
     Vidurkis(A);
     StudentuRusiavimas(Nuskriaustieji, Mokslinciai, A, IrasuSk, failas, temp);
 }
-void StudentuRusiavimas(vector<Mokinys> Nuskriaustieji, vector<Mokinys> Mokslinciai, vector<Mokinys> A, vector<int> IrasuSk, string failas, int &temp)
+void StudentuRusiavimas(vector<Mokinys>& Nuskriaustieji, vector<Mokinys>& Mokslinciai, vector<Mokinys>& A, vector<int>& IrasuSk, string failas, int& temp)
 {
     string filename = "nuskriaustieji" + to_string(temp) + ".txt";
     string filename1 = "mokslinciai." + to_string(temp) + ".txt";
@@ -179,7 +187,7 @@ void StudentuRusiavimas(vector<Mokinys> Nuskriaustieji, vector<Mokinys> Mokslinc
     {
         for (int i = 0; i < A.size(); i++)
         {
-            if (A[i].VID < 5.0)
+            if (A[i].VID > 5.0)
                 Nuskriaustieji.push_back(A[i]);
             else
                 Mokslinciai.push_back(A[i]);
@@ -189,7 +197,7 @@ void StudentuRusiavimas(vector<Mokinys> Nuskriaustieji, vector<Mokinys> Mokslinc
     {
         for (int i = 0; i < A.size(); i++)
         {
-            if (A[i].MED < 5.0)
+            if (A[i].MED > 5.0)
                 Nuskriaustieji.push_back(A[i]);
             else
                 Mokslinciai.push_back(A[i]);
@@ -200,6 +208,8 @@ void StudentuRusiavimas(vector<Mokinys> Nuskriaustieji, vector<Mokinys> Mokslinc
 
     std::chrono::duration<double> diff = std::chrono::high_resolution_clock::now() - start;
     cout << "Studentu rusiavimas uztruko: " << diff.count() << "s\n";
+    
+    Rikiavimas(Mokslinciai, Nuskriaustieji, IrasuSk);
 
     cout << "~Mokslinciai~" << endl;
     Isvedimas(Mokslinciai, Mokslinciai.size(), filename);
@@ -247,4 +257,31 @@ void Isvedimas(const vector<Mokinys> &A, int MOK_kiekis, string isvedimas)
     }
     else
         throw runtime_error("Netinkama ivestis!");
+}
+void Rikiavimas(vector<Mokinys>& Mokslinciai, vector<Mokinys>& Nuskriaustieji, vector<int>& IrasuSk){
+    char kint;
+    cout << "Pagal ka rikiuoti: varda, pavarde, vidurki, mediana?(v, p, V, m)" << endl;
+            cin >> kint;
+                if (kint == 'V')
+                {
+                    sort(Mokslinciai.begin(), Mokslinciai.end(), PagalVidurki);
+                    sort(Nuskriaustieji.begin(), Nuskriaustieji.end(), PagalVidurki);
+                }
+                else if (kint == 'm')
+                {
+                    sort(Mokslinciai.begin(), Mokslinciai.end(), PagalMediana);
+                    sort(Nuskriaustieji.begin(), Nuskriaustieji.end(), PagalMediana);
+                }
+                else if (kint == 'v')
+                {
+                    sort(Mokslinciai.begin(), Mokslinciai.end(), PagalVarda);
+                    sort(Nuskriaustieji.begin(), Nuskriaustieji.end(), PagalVarda);
+                }
+                else if (kint == 'p')
+                {
+                    sort(Mokslinciai.begin(), Mokslinciai.end(), PagalPavarde);
+                    sort(Nuskriaustieji.begin(), Nuskriaustieji.end(), PagalPavarde);
+                }
+                else
+                    throw runtime_error("Netinkama ivestis!");
 }

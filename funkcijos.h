@@ -9,8 +9,9 @@ bool PagalVidurki(const Mokinys &a, const Mokinys &b);
 bool PagalMediana(const Mokinys &a, const Mokinys &b);
 bool PagalVarda(const Mokinys &a, const Mokinys &b);
 bool PagalPavarde(const Mokinys &a, const Mokinys &b);
-void GeneruotiFailus(vector<Mokinys> Nuskriaustieji, vector<Mokinys> Mokslinciai, vector<int> IrasuSk, vector<Mokinys> A);
-void Skaitymas(vector<Mokinys> Nuskriaustieji, vector<Mokinys> Mokslinciai, vector<int> IrasuSk, string failas, vector<Mokinys> A, int &temp);
-void StudentuRusiavimas(vector<Mokinys> Nuskriaustieji, vector<Mokinys> Mokslinciai, vector<Mokinys> A, vector<int> IrasuSk, string failas, int &temp);
+void Rikiavimas(vector<Mokinys>& Mokslinciai, vector<Mokinys>& Nuskriaustieji, vector<int>& IrasuSk);
+void GeneruotiFailus(vector<Mokinys>& Nuskriaustieji, vector<Mokinys>& Mokslinciai, vector<int>& IrasuSk, vector<Mokinys>& A);
+void Skaitymas(vector<Mokinys>& Nuskriaustieji, vector<Mokinys>& Mokslinciai, vector<int>& IrasuSk, string failas, vector<Mokinys>& A, int& temp);
+void StudentuRusiavimas(vector<Mokinys>& Nuskriaustieji, vector<Mokinys>& Mokslinciai, vector<Mokinys>& A, vector<int>& IrasuSk, string failas, int& temp);
 
 #endif
