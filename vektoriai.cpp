@@ -165,59 +165,27 @@ int main()
                 return 1;
             }
         }
-        //SKAITYMAS
+        // SKAITYMAS
         else if (input == 's')
         {
             auto start1 = std::chrono::high_resolution_clock::now();
             auto st1 = start1;
             string failas;
+            int temp;
             cout << "Ar norite generuoti naujus failus?(t/n) " << endl;
             cin >> input3;
-            if (input3 == 't')
-                GeneruotiFailus(IrasuSk, A);
+            if (input3 == 't'){
+                GeneruotiFailus(Nuskriaustieji, Mokslinciai, IrasuSk, A);
+            }
             else if (input3 == 'n')
+            {
                 failas = CDfv;
+                Skaitymas(Nuskriaustieji, Mokslinciai, IrasuSk, failas, A, temp);
+            }
             else
                 throw runtime_error("Netinkama ivestis!");
-            //
             Vidurkis(A);
-            if (input3 == 't')
-            {
-                char input4;
-                cout << "Isrinkti mokinius pagal vidurki ar mediana?(V, M) " << endl;
-                cin >> input4;
-                auto start = std::chrono::high_resolution_clock::now();
-                auto st = start;
-                if (input4 == 'V')
-                {
-                    for (int i = 0; i < A.size(); i++)
-                    {
-                        if (A[i].VID < 5.0)
-                            Nuskriaustieji.push_back(A[i]);
-                        else
-                            Mokslinciai.push_back(A[i]);
-                    }
-                }
-                else if (input4 == 'M')
-                {
-                    for (int i = 0; i < A.size(); i++)
-                    {
-                        if (A[i].MED < 5.0)
-                            Nuskriaustieji.push_back(A[i]);
-                        else
-                            Mokslinciai.push_back(A[i]);
-                    }
-                }
-                else
-                    throw runtime_error("Netinkama ivestis!");
-                std::chrono::duration<double> diff = std::chrono::high_resolution_clock::now() - start;
-                cout << "Studentu rusiavimas uztruko: " << diff.count() << "s\n";
 
-                cout << "~Mokslinciai~"<<endl;
-                Isvedimas(Mokslinciai, Mokslinciai.size(), CRfv3);
-                cout << "~Nuskriaustieji~"<<endl;
-                Isvedimas(Nuskriaustieji, Nuskriaustieji.size(), CRfv4);
-            }
             char kint;
             cout << "Pagal ka rikiuoti: varda, pavarde, vidurki, mediana?(v, p, V, m)" << endl;
             cin >> kint;
@@ -232,7 +200,6 @@ int main()
                 {
                     sort(Mokslinciai.begin(), Mokslinciai.end(), PagalMediana);
                     sort(Nuskriaustieji.begin(), Nuskriaustieji.end(), PagalMediana);
-
                 }
                 else if (kint == 'v')
                 {
@@ -275,12 +242,13 @@ int main()
                 }
             }
             else
-                {
-                    throw runtime_error("Netinkama ivestis!");
-                    return 1;
-                }
+            {
+                throw runtime_error("Netinkama ivestis!");
+                return 1;
+            }
             std::chrono::duration<double> diff1 = std::chrono::high_resolution_clock::now() - start1;
-            cout << "Programa uztruko: " << diff1.count() << "s\n";
+            if (input3 == 'n')
+                cout << "Programa uztruko: " << diff1.count() << "s\n";
         }
         else
         {

@@ -1,4 +1,5 @@
 #include "mokinys.h"
+#include "funkcijos.h"
 
 bool Patikrinimas(string kint)
 {
@@ -84,12 +85,15 @@ bool PagalPavarde(const Mokinys &a, const Mokinys &b)
     std::chrono::duration<double> diff = std::chrono::high_resolution_clock::now() - start;
     cout << "Failo is "+ to_string(irasai) + " sukurimo laikas: " << diff.count() << "s\n";
 } */
-void GeneruotiFailus(vector<int> IrasuSk, vector<Mokinys> A)
+void GeneruotiFailus(vector<Mokinys> Nuskriaustieji, vector<Mokinys> Mokslinciai, vector<int> IrasuSk, vector<Mokinys> A)
 {
+    auto start = std::chrono::high_resolution_clock::now();
+    auto st = start;
     srand(time(NULL));
 
     for (int i = 0; i < IrasuSk.size(); i++)
     {
+        cout << "~FAILAS " + to_string(i) + "~" << endl;
         string filename = "failas" + to_string(i) + ".txt";
         ofstream fr(filename);
 
@@ -112,10 +116,12 @@ void GeneruotiFailus(vector<int> IrasuSk, vector<Mokinys> A)
         }
 
         fr.close();
-        Skaitymas(filename, A);
+        std::chrono::duration<double> diff = std::chrono::high_resolution_clock::now() - start;
+        cout << "Failo_"+ to_string(i) +" kurimo laikas: " << diff.count() << "s\n";
+        Skaitymas(Nuskriaustieji, Mokslinciai, IrasuSk, filename, A, i);
     }
 }
-void Skaitymas(string &failas, vector<Mokinys> A)
+void Skaitymas(vector<Mokinys> Nuskriaustieji, vector<Mokinys> Mokslinciai, vector<int> IrasuSk, string failas, vector<Mokinys> A, int &temp)
 {
     string eil;
     ifstream fd(failas);
@@ -156,6 +162,49 @@ void Skaitymas(string &failas, vector<Mokinys> A)
     std::chrono::duration<double> diff = std::chrono::high_resolution_clock::now() - start;
     cout << "Nuskaitymo laikas: " << diff.count() << "s\n";
     fd.close();
+    Vidurkis(A);
+    StudentuRusiavimas(Nuskriaustieji, Mokslinciai, A, IrasuSk, failas, temp);
+}
+void StudentuRusiavimas(vector<Mokinys> Nuskriaustieji, vector<Mokinys> Mokslinciai, vector<Mokinys> A, vector<int> IrasuSk, string failas, int &temp)
+{
+    string filename = "nuskriaustieji" + to_string(temp) + ".txt";
+    string filename1 = "mokslinciai." + to_string(temp) + ".txt";
+    int kint;
+    char input4;
+    cout << "Isrinkti mokinius pagal vidurki ar mediana?(V, M) " << endl;
+    cin >> input4;
+    auto start = std::chrono::high_resolution_clock::now();
+    auto st = start;
+    if (input4 == 'V')
+    {
+        for (int i = 0; i < A.size(); i++)
+        {
+            if (A[i].VID < 5.0)
+                Nuskriaustieji.push_back(A[i]);
+            else
+                Mokslinciai.push_back(A[i]);
+        }
+    }
+    else if (input4 == 'M')
+    {
+        for (int i = 0; i < A.size(); i++)
+        {
+            if (A[i].MED < 5.0)
+                Nuskriaustieji.push_back(A[i]);
+            else
+                Mokslinciai.push_back(A[i]);
+        }
+    }
+    else
+        throw runtime_error("Netinkama ivestis!");
+
+    std::chrono::duration<double> diff = std::chrono::high_resolution_clock::now() - start;
+    cout << "Studentu rusiavimas uztruko: " << diff.count() << "s\n";
+
+    cout << "~Mokslinciai~" << endl;
+    Isvedimas(Mokslinciai, Mokslinciai.size(), filename);
+    cout << "~Nuskriaustieji~" << endl;
+    Isvedimas(Nuskriaustieji, Nuskriaustieji.size(), filename1);
 }
 void Isvedimas(const vector<Mokinys> &A, int MOK_kiekis, string isvedimas)
 {
