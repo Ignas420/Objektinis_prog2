@@ -15,7 +15,7 @@
 using namespace std;
 
 const char CRfv[] = "rezultatai.txt";
-const char CRfv2[] = "rezultatai2.txt";
+const char CRfv2[] = "naujas_failas.txt";
 const char CRfv3[] = "mokslinciai.txt";
 const char CRfv4[] = "nuskriaustieji.txt";
 

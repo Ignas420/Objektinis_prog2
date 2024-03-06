@@ -6,6 +6,7 @@ int main()
     try
     {
         int n, m, kint;
+        vector<int> IrasuSk = {1000, 10000, 100000, 1000000, 10000000};
         vector<Mokinys> A;
         vector<Mokinys> Mokslinciai;
         vector<Mokinys> Nuskriaustieji;
@@ -164,68 +165,29 @@ int main()
                 return 1;
             }
         }
+        //SKAITYMAS
         else if (input == 's')
         {
             auto start1 = std::chrono::high_resolution_clock::now();
             auto st1 = start1;
             string failas;
-            cout << "Ar norite generuoti nauja faila?(t/n) " << endl;
+            cout << "Ar norite generuoti naujus failus?(t/n) " << endl;
             cin >> input3;
             if (input3 == 't')
-            {
-                FailuGeneravimas();
-                failas = CRfv2;
-            }
+                GeneruotiFailus(IrasuSk, A);
             else if (input3 == 'n')
                 failas = CDfv;
             else
                 throw runtime_error("Netinkama ivestis!");
-            ifstream fd(failas);
-            if (!fd)
-                throw runtime_error("Failas nurodytoje vietoje neegzistuoja!");
-            getline(fd, eil);
-            auto start = std::chrono::high_resolution_clock::now();
-            auto st = start;
-            while (getline(fd, eil))
-            {
-                istringstream iss(eil);
-                Mokinys temp;
-                iss >> temp.vardas >> temp.pavarde;
-                int pazymiai;
-                while (iss >> pazymiai)
-                    temp.ND.push_back(pazymiai);
-
-                if (!temp.ND.empty())
-                {
-                    temp.egzaminas = temp.ND.back();
-                    temp.ND.pop_back();
-                }
-
-                sort(temp.ND.begin(), temp.ND.end());
-                double mediana;
-
-                if (!temp.ND.empty())
-                {
-                    mediana = temp.ND[temp.ND.size() / 2];
-                    if (temp.ND.size() % 2 == 0)
-                    {
-                        mediana = (temp.ND[temp.ND.size() / 2 - 1] + temp.ND[temp.ND.size() / 2]) / 2.0;
-                    }
-                }
-                temp.MED = mediana;
-                A.push_back(temp);
-            }
-            std::chrono::duration<double> diff = std::chrono::high_resolution_clock::now() - start;
-            cout << "Nuskaitymo laikas: " << diff.count() << "s\n";
-            fd.close();
+            //
             Vidurkis(A);
             if (input3 == 't')
             {
                 char input4;
                 cout << "Isrinkti mokinius pagal vidurki ar mediana?(V, M) " << endl;
                 cin >> input4;
-                start = std::chrono::high_resolution_clock::now();
-                st = start;
+                auto start = std::chrono::high_resolution_clock::now();
+                auto st = start;
                 if (input4 == 'V')
                 {
                     for (int i = 0; i < A.size(); i++)
@@ -248,7 +210,7 @@ int main()
                 }
                 else
                     throw runtime_error("Netinkama ivestis!");
-                diff = std::chrono::high_resolution_clock::now() - start;
+                std::chrono::duration<double> diff = std::chrono::high_resolution_clock::now() - start;
                 cout << "Studentu rusiavimas uztruko: " << diff.count() << "s\n";
 
                 cout << "~Mokslinciai~"<<endl;
