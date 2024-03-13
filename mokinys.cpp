@@ -86,9 +86,10 @@ bool PagalPavarde(const Mokinys &a, const Mokinys &b)
     cout << "Failo is "+ to_string(irasai) + " sukurimo laikas: " << diff.count() << "s\n";
 } */
 
-void GeneruotiFailus(vector<Mokinys>& Nuskriaustieji, vector<Mokinys>& Mokslinciai, vector<int>& IrasuSk, vector<Mokinys>& A)
+void GeneruotiFailus(vector<Mokinys> &Nuskriaustieji, vector<Mokinys> &Mokslinciai, vector<int> &IrasuSk, vector<Mokinys> &A)
 {
     srand(time(NULL));
+    double visasLaikas = 0.0; 
 
     for (int i = 0; i < IrasuSk.size(); i++)
     {
@@ -123,13 +124,20 @@ void GeneruotiFailus(vector<Mokinys>& Nuskriaustieji, vector<Mokinys>& Mokslinci
         std::chrono::duration<double> diff = std::chrono::high_resolution_clock::now() - start;
         cout << "Failo " + to_string(i) + " kurimo laikas: " << diff.count() << "s\n";
 
+        //totalDuration += diff.count();
+
         Skaitymas(Nuskriaustieji, Mokslinciai, IrasuSk, filename, A, i);
 
         std::chrono::duration<double> diff1 = std::chrono::high_resolution_clock::now() - start1;
-        cout << "Visa programa " + to_string(i) + " uztruko: " << diff.count() << "s\n";
+        cout << "Visa programa " + to_string(i) + " uztruko: " << diff1.count() << "s\n";
+
+        visasLaikas += diff1.count();
     }
+    cout << endl;
+    double vidLaikas = visasLaikas / IrasuSk.size();
+    cout << "Vidutinis testavimu vykdymo laikas: " << vidLaikas << endl;
 }
-void Skaitymas(vector<Mokinys>& Nuskriaustieji, vector<Mokinys>& Mokslinciai, vector<int>& IrasuSk, string failas, vector<Mokinys>& A, int& temp)
+void Skaitymas(vector<Mokinys> &Nuskriaustieji, vector<Mokinys> &Mokslinciai, vector<int> &IrasuSk, string failas, vector<Mokinys> &A, int &temp)
 {
     string eil;
     ifstream fd(failas);
@@ -171,9 +179,10 @@ void Skaitymas(vector<Mokinys>& Nuskriaustieji, vector<Mokinys>& Mokslinciai, ve
     cout << "Nuskaitymo laikas: " << diff.count() << "s\n";
     fd.close();
     Vidurkis(A);
-    StudentuRusiavimas(Nuskriaustieji, Mokslinciai, A, IrasuSk, failas, temp);
+    if (failas != CDfv)
+        StudentuRusiavimas(Nuskriaustieji, Mokslinciai, A, IrasuSk, failas, temp);
 }
-void StudentuRusiavimas(vector<Mokinys>& Nuskriaustieji, vector<Mokinys>& Mokslinciai, vector<Mokinys>& A, vector<int>& IrasuSk, string failas, int& temp)
+void StudentuRusiavimas(vector<Mokinys> &Nuskriaustieji, vector<Mokinys> &Mokslinciai, vector<Mokinys> &A, vector<int> &IrasuSk, string failas, int &temp)
 {
     string filename = "nuskriaustieji" + to_string(temp) + ".txt";
     string filename1 = "mokslinciai." + to_string(temp) + ".txt";
@@ -208,7 +217,7 @@ void StudentuRusiavimas(vector<Mokinys>& Nuskriaustieji, vector<Mokinys>& Moksli
 
     std::chrono::duration<double> diff = std::chrono::high_resolution_clock::now() - start;
     cout << "Studentu rusiavimas uztruko: " << diff.count() << "s\n";
-    
+
     Rikiavimas(Mokslinciai, Nuskriaustieji, IrasuSk);
 
     cout << "~Mokslinciai~" << endl;
@@ -258,30 +267,31 @@ void Isvedimas(const vector<Mokinys> &A, int MOK_kiekis, string isvedimas)
     else
         throw runtime_error("Netinkama ivestis!");
 }
-void Rikiavimas(vector<Mokinys>& Mokslinciai, vector<Mokinys>& Nuskriaustieji, vector<int>& IrasuSk){
+void Rikiavimas(vector<Mokinys> &Mokslinciai, vector<Mokinys> &Nuskriaustieji, vector<int> &IrasuSk)
+{
     char kint;
     cout << "Pagal ka rikiuoti: varda, pavarde, vidurki, mediana?(v, p, V, m)" << endl;
-            cin >> kint;
-                if (kint == 'V')
-                {
-                    sort(Mokslinciai.begin(), Mokslinciai.end(), PagalVidurki);
-                    sort(Nuskriaustieji.begin(), Nuskriaustieji.end(), PagalVidurki);
-                }
-                else if (kint == 'm')
-                {
-                    sort(Mokslinciai.begin(), Mokslinciai.end(), PagalMediana);
-                    sort(Nuskriaustieji.begin(), Nuskriaustieji.end(), PagalMediana);
-                }
-                else if (kint == 'v')
-                {
-                    sort(Mokslinciai.begin(), Mokslinciai.end(), PagalVarda);
-                    sort(Nuskriaustieji.begin(), Nuskriaustieji.end(), PagalVarda);
-                }
-                else if (kint == 'p')
-                {
-                    sort(Mokslinciai.begin(), Mokslinciai.end(), PagalPavarde);
-                    sort(Nuskriaustieji.begin(), Nuskriaustieji.end(), PagalPavarde);
-                }
-                else
-                    throw runtime_error("Netinkama ivestis!");
+    cin >> kint;
+    if (kint == 'V')
+    {
+        sort(Mokslinciai.begin(), Mokslinciai.end(), PagalVidurki);
+        sort(Nuskriaustieji.begin(), Nuskriaustieji.end(), PagalVidurki);
+    }
+    else if (kint == 'm')
+    {
+        sort(Mokslinciai.begin(), Mokslinciai.end(), PagalMediana);
+        sort(Nuskriaustieji.begin(), Nuskriaustieji.end(), PagalMediana);
+    }
+    else if (kint == 'v')
+    {
+        sort(Mokslinciai.begin(), Mokslinciai.end(), PagalVarda);
+        sort(Nuskriaustieji.begin(), Nuskriaustieji.end(), PagalVarda);
+    }
+    else if (kint == 'p')
+    {
+        sort(Mokslinciai.begin(), Mokslinciai.end(), PagalPavarde);
+        sort(Nuskriaustieji.begin(), Nuskriaustieji.end(), PagalPavarde);
+    }
+    else
+        throw runtime_error("Netinkama ivestis!");
 }

@@ -1,6 +1,8 @@
 #include "mokinys.h"
 #include "funkcijos.h"
 
+auto start1 = std::chrono::high_resolution_clock::now();
+
 int main()
 {
     try
@@ -12,6 +14,7 @@ int main()
         vector<Mokinys> Nuskriaustieji;
         string eil;
         char input, input2, input3;
+        
         cout << "Norite ivesti ar skaityti is failo?(i/s) " << endl;
         cin >> input;
         if (input == 'i')
@@ -240,9 +243,6 @@ int main()
                     return 1;
                 }
             }
-            std::chrono::duration<double> diff1 = std::chrono::high_resolution_clock::now() - start1;
-            if (input3 == 'n')
-                cout << "Programa uztruko: " << diff1.count() << "s\n";
         }
         else
         {
@@ -253,6 +253,9 @@ int main()
             return 0;
         else
             Isvedimas(A, A.size(), CRfv);
+            std::chrono::duration<double> diff1 = std::chrono::high_resolution_clock::now() - start1;
+            if (input3 == 'n')
+                cout << "Programa uztruko: " << diff1.count() << "s\n";
         return 0;
     }
     catch (exception &e)
