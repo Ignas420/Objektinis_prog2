@@ -5,6 +5,7 @@
 bool Patikrinimas(string kint);
 void Vidurkis(vector<Mokinys> &A);
 void Isvedimas(const vector<Mokinys> &A, int MOK_kiekis, string isvedimas);
+void Isvedimas2(const vector<Mokinys> &A, int MOK_kiekis, string isvedimas);
 bool PagalVidurki(const Mokinys &a, const Mokinys &b);
 bool PagalMediana(const Mokinys &a, const Mokinys &b);
 bool PagalVarda(const Mokinys &a, const Mokinys &b);

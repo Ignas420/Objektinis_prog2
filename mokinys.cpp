@@ -179,8 +179,8 @@ void Skaitymas(vector<Mokinys> &Nuskriaustieji, vector<Mokinys> &Mokslinciai, ve
     cout << "Nuskaitymo laikas: " << diff.count() << "s\n";
     fd.close();
     Vidurkis(A);
-    if (failas != CDfv)
-        StudentuRusiavimas(Nuskriaustieji, Mokslinciai, A, IrasuSk, failas, temp);
+    
+    StudentuRusiavimas(Nuskriaustieji, Mokslinciai, A, IrasuSk, failas, temp);
 }
 void StudentuRusiavimas(vector<Mokinys> &Nuskriaustieji, vector<Mokinys> &Mokslinciai, vector<Mokinys> &A, vector<int> &IrasuSk, string failas, int &temp)
 {
@@ -221,9 +221,9 @@ void StudentuRusiavimas(vector<Mokinys> &Nuskriaustieji, vector<Mokinys> &Moksli
     Rikiavimas(Mokslinciai, Nuskriaustieji, IrasuSk);
 
     cout << "~Mokslinciai~" << endl;
-    Isvedimas(Mokslinciai, Mokslinciai.size(), filename);
+    Isvedimas2(Mokslinciai, Mokslinciai.size(), filename);
     cout << "~Nuskriaustieji~" << endl;
-    Isvedimas(Nuskriaustieji, Nuskriaustieji.size(), filename1);
+    Isvedimas2(Nuskriaustieji, Nuskriaustieji.size(), filename1);
 }
 void Isvedimas(const vector<Mokinys> &A, int MOK_kiekis, string isvedimas)
 {
@@ -266,6 +266,24 @@ void Isvedimas(const vector<Mokinys> &A, int MOK_kiekis, string isvedimas)
     }
     else
         throw runtime_error("Netinkama ivestis!");
+}
+void Isvedimas2(const vector<Mokinys> &A, int MOK_kiekis, string isvedimas)
+{
+        auto start = std::chrono::high_resolution_clock::now();
+        auto st = start;
+        ofstream fr(isvedimas);
+        fr << setw(20) << left << "Vardas" << setw(20) << left << "Pavarde" << setw(20) << right << "Galutinis (Vid.) / Galutinis(Med.)" << endl;
+        fr << setfill('-') << setw(80) << " " << endl;
+        fr << setfill(' ');
+
+        for (int i = 0; i < MOK_kiekis; i++)
+        {
+            fr << setw(20) << left << A[i].vardas << setw(20) << left << A[i].pavarde << right << fixed << setprecision(2) << A[i].VID << setw(18) << right << A[i].MED;
+            fr << endl;
+        }
+        fr.close();
+        std::chrono::duration<double> diff = std::chrono::high_resolution_clock::now() - start;
+        cout << "Studentu isvedimas i failus uztruko: " << diff.count() << "s\n";
 }
 void Rikiavimas(vector<Mokinys> &Mokslinciai, vector<Mokinys> &Nuskriaustieji, vector<int> &IrasuSk)
 {
