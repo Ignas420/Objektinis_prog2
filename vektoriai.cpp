@@ -179,14 +179,15 @@ int main()
             cin >> input3;
             if (input3 == 't')
                 GeneruotiFailus(Nuskriaustieji, Mokslinciai, IrasuSk, A);
+                
             else if (input3 == 'n')
             {
                 int kint5;
                 cout << "Iveskite failu skaiciu: "<<endl;
                 cin >> kint5;
-                while(kint5!=0){
-                    Skaitymas(Nuskriaustieji, Mokslinciai, IrasuSk, failas, A, temp);
-                    kint5--;
+                for(int i=0; i<kint5; i++){
+                    string filename = "failas" + to_string(i) + ".txt";
+                    Skaitymas(Nuskriaustieji, Mokslinciai, IrasuSk, filename, A, i);
                 }
             }
             else
@@ -221,53 +222,12 @@ int main()
                     return 1;
                 }
             } */
-
-            if (input3 == 'n')
-            {
-                char kint;
-                cout << "Pagal ka rikiuoti: varda, pavarde, vidurki, mediana?(v, p, V, m)" << endl;
-                cin >> kint;
-                auto start2 = std::chrono::high_resolution_clock::now();
-                auto st2 = start2;
-                if (kint == 'V')
-                {
-                    sort(A.begin(), A.end(), PagalVidurki);
-                }
-                else if (kint == 'm')
-                {
-                    sort(A.begin(), A.end(), PagalMediana);
-                }
-                else if (kint == 'v')
-                {
-                    sort(A.begin(), A.end(), PagalVarda);
-                }
-                else if (kint == 'p')
-                {
-                    sort(A.begin(), A.end(), PagalPavarde);
-                }
-                else
-                {
-                    throw runtime_error("Netinkama ivestis!");
-                    return 1;
-                }
-                std::chrono::duration<double> diff2 = std::chrono::high_resolution_clock::now() - start2;
-                cout << "Studentu rikiavimas uztruko: " << diff2.count() << "s\n";
-            }
         }
         else
         {
             throw runtime_error("Netinkama ivestis!");
             return 1;
         }
-        if (input3 == 't')
-            return 0;
-        else{
-            string failas = CDfv0;
-            Isvedimas(A, A.size(), CRfv);
-        }
-            std::chrono::duration<double> diff1 = std::chrono::high_resolution_clock::now() - start1;
-            if (input3 == 'n')
-                cout << "Programa uztruko: " << diff1.count() << "s\n";
         return 0;
     }
     catch (exception &e)
