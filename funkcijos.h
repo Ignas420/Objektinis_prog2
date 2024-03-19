@@ -1,7 +1,7 @@
 #ifndef FUNKCIJOS_H
 #define FUNKCIJOS_H
 #include "mokinys.h"
-
+//
 bool Patikrinimas(string kint);
 void Vidurkis(vector<Mokinys> &A);
 void Isvedimas(const vector<Mokinys> &A, int MOK_kiekis, string isvedimas);

@@ -200,7 +200,6 @@ int main()
                 {
                     sort(Mokslinciai.begin(), Mokslinciai.end(), PagalVidurki);
                     sort(Nuskriaustieji.begin(), Nuskriaustieji.end(), PagalVidurki);
-                }
                 else if (kint == 'm')
                 {
                     sort(Mokslinciai.begin(), Mokslinciai.end(), PagalMediana);

@@ -85,6 +85,7 @@ bool PagalPavarde(const Mokinys &a, const Mokinys &b)
     std::chrono::duration<double> diff = std::chrono::high_resolution_clock::now() - start;
     cout << "Failo is "+ to_string(irasai) + " sukurimo laikas: " << diff.count() << "s\n";
 } */
+//
 double visasLaikas;
 void GeneruotiFailus(vector<Mokinys> &Nuskriaustieji, vector<Mokinys> &Mokslinciai, vector<int> &IrasuSk, vector<Mokinys> &A)
 {
