@@ -1,5 +1,5 @@
-#include "mokinys.h"
-#include "funkcijos.h"
+#include "mokinys1.h"
+#include "funkcijos1.h"
 
 int main() {
     try {

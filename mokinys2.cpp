@@ -1,5 +1,5 @@
-#include "mokinys.h"
-#include "funkcijos.h"
+#include "mokinys2.h"
+#include "funkcijos2.h"
 
 bool Patikrinimas(string kint)
 {
@@ -15,10 +15,11 @@ bool Patikrinimas(string kint)
     return true;
 }
 
-void Vidurkis(list<Mokinys> &A)
+void Vidurkis(deque<Mokinys> &A)
 {
-    for (auto &mok : A)
+    for (int i = 0; i < A.size(); i++)
     {
+        Mokinys &mok = A[i];
         double suma = 0;
         for (int pazymys : mok.ND)
         {
@@ -52,18 +53,17 @@ bool PagalPavarde(const Mokinys &a, const Mokinys &b)
 
 double visasLaikas;
 
-void GeneruotiFailus(list<Mokinys> &Nuskriaustieji, list<Mokinys> &Mokslinciai, list<int> &IrasuSk, list<Mokinys> &A)
+void GeneruotiFailus(deque<Mokinys> &Nuskriaustieji, deque<Mokinys> &Mokslinciai, deque<int> &IrasuSk, deque<Mokinys> &A)
 {
     srand(time(NULL));
     visasLaikas = 0.0;
 
-    int temp_index = 0;
-    for (auto irasai : IrasuSk)
+    for (int i = 0; i < IrasuSk.size(); i++)
     {
         auto start = std::chrono::high_resolution_clock::now();
         auto st = start;
-        cout << "~FAILAS " + to_string(temp_index) + "~" << endl;
-        string filename = "failas" + to_string(temp_index) + ".txt";
+        cout << "~FAILAS " + to_string(i) + "~" << endl;
+        string filename = "failas" + to_string(i) + ".txt";
         ofstream fr(filename);
 
         if (!fr)
@@ -76,7 +76,7 @@ void GeneruotiFailus(list<Mokinys> &Nuskriaustieji, list<Mokinys> &Mokslinciai, 
             fr << setw(10) << left << "ND";
         fr << setw(10) << left << "Egz." << endl;
 
-        for (int j = 0; j < irasai; j++)
+        for (int j = 0; j < IrasuSk[i]; j++)
         {
             fr << setw(20) << left << ("Vardas" + to_string(j)) << setw(20) << left << ("Pavarde" + to_string(j));
             for (int k = 0; k < temp; k++)
@@ -86,17 +86,17 @@ void GeneruotiFailus(list<Mokinys> &Nuskriaustieji, list<Mokinys> &Mokslinciai, 
 
         fr.close();
         std::chrono::duration<double> diff = std::chrono::high_resolution_clock::now() - start;
-        cout << "Failo " + to_string(temp_index) + " kurimo laikas: " << diff.count() << "s\n";
+        cout << "Failo " + to_string(i) + " kurimo laikas: " << diff.count() << "s\n";
 
         visasLaikas += diff.count();
 
-        Skaitymas(Nuskriaustieji, Mokslinciai, IrasuSk, filename, A, temp_index);
-        temp_index++;
+        Skaitymas(Nuskriaustieji, Mokslinciai, IrasuSk, filename, A, i);
     }
 }
 
-void Skaitymas(list<Mokinys> &Nuskriaustieji, list<Mokinys> &Mokslinciai, list<int> &IrasuSk, string failas, list<Mokinys> &A, int &temp)
+void Skaitymas(deque<Mokinys> &Nuskriaustieji, deque<Mokinys> &Mokslinciai, deque<int> &IrasuSk, string failas, deque<Mokinys> &A, int &temp)
 {
+
     auto start1 = std::chrono::high_resolution_clock::now();
     auto st1 = start1;
 
@@ -122,18 +122,15 @@ void Skaitymas(list<Mokinys> &Nuskriaustieji, list<Mokinys> &Mokslinciai, list<i
             temp.ND.pop_back();
         }
 
-        temp.ND.sort(); // Sort the list of grades
+        sort(temp.ND.begin(), temp.ND.end());
         double mediana;
 
         if (!temp.ND.empty())
         {
-            auto it = temp.ND.begin();
-            advance(it, temp.ND.size() / 2);
-            mediana = *it;
+            mediana = temp.ND[temp.ND.size() / 2];
             if (temp.ND.size() % 2 == 0)
             {
-                it--;
-                mediana = (*it + mediana) / 2.0;
+                mediana = (temp.ND[temp.ND.size() / 2 - 1] + temp.ND[temp.ND.size() / 2]) / 2.0;
             }
         }
         temp.MED = mediana;
@@ -153,7 +150,7 @@ void Skaitymas(list<Mokinys> &Nuskriaustieji, list<Mokinys> &Mokslinciai, list<i
     cout << endl;
 }
 
-void StudentuRusiavimas(list<Mokinys> &Nuskriaustieji, list<Mokinys> &Mokslinciai, list<Mokinys> &A, list<int> &IrasuSk, string failas, int &temp)
+void StudentuRusiavimas(deque<Mokinys> &Nuskriaustieji, deque<Mokinys> &Mokslinciai, deque<Mokinys> &A, deque<int> &IrasuSk, string failas, int &temp)
 {
     string filename = "nuskriaustieji" + to_string(temp) + ".txt";
     string filename1 = "mokslinciai." + to_string(temp) + ".txt";
@@ -161,19 +158,19 @@ void StudentuRusiavimas(list<Mokinys> &Nuskriaustieji, list<Mokinys> &Mokslincia
     auto start = std::chrono::high_resolution_clock::now();
     auto st = start;
 
-    for (auto &mok : A)
+    for (int i = 0; i < A.size(); i++)
     {
-        if (mok.VID > 5.0)
-            Nuskriaustieji.push_back(mok);
+        if (A[i].VID > 5.0)
+            Nuskriaustieji.push_back(A[i]);
         else
-            Mokslinciai.push_back(mok);
+            Mokslinciai.push_back(A[i]);
     }
 
     std::chrono::duration<double> diff = std::chrono::high_resolution_clock::now() - start;
     cout << "Studentu rusiavimas uztruko: " << diff.count() << "s\n";
 
-    Mokslinciai.sort(PagalVidurki);
-    Nuskriaustieji.sort(PagalVidurki);
+    sort(Mokslinciai.begin(), Mokslinciai.end(), PagalVidurki);
+    sort(Nuskriaustieji.begin(), Nuskriaustieji.end(), PagalVidurki);
 
     cout << "~Mokslinciai~" << endl;
     Isvedimas2(Mokslinciai, Mokslinciai.size(), filename);
@@ -181,7 +178,7 @@ void StudentuRusiavimas(list<Mokinys> &Nuskriaustieji, list<Mokinys> &Mokslincia
     Isvedimas2(Nuskriaustieji, Nuskriaustieji.size(), filename1);
 }
 
-void Isvedimas(const list<Mokinys> &A, int MOK_kiekis, string isvedimas)
+void Isvedimas(const deque<Mokinys> &A, int MOK_kiekis, string isvedimas)
 {
     char kint;
     cout << "Rezultatus matyti norite ekrane ar faile?(e/f): ";
@@ -194,9 +191,9 @@ void Isvedimas(const list<Mokinys> &A, int MOK_kiekis, string isvedimas)
         cout << setfill('-') << setw(80) << " " << endl;
         cout << setfill(' ');
 
-        for (const auto &mok : A)
+        for (int i = 0; i < MOK_kiekis; i++)
         {
-            cout << setw(20) << left << mok.vardas << setw(20) << left << mok.pavarde << right << fixed << setprecision(2) << mok.VID << setw(18) << right << mok.MED;
+            cout << setw(20) << left << A[i].vardas << setw(20) << left << A[i].pavarde << right << fixed << setprecision(2) << A[i].VID << setw(18) << right << A[i].MED;
             cout << endl;
         }
         std::chrono::duration<double> diff = std::chrono::high_resolution_clock::now() - start;
@@ -211,9 +208,9 @@ void Isvedimas(const list<Mokinys> &A, int MOK_kiekis, string isvedimas)
         fr << setfill('-') << setw(80) << " " << endl;
         fr << setfill(' ');
 
-        for (const auto &mok : A)
+        for (int i = 0; i < MOK_kiekis; i++)
         {
-            fr << setw(20) << left << mok.vardas << setw(20) << left << mok.pavarde << right << fixed << setprecision(2) << mok.VID << setw(18) << right << mok.MED;
+            fr << setw(20) << left << A[i].vardas << setw(20) << left << A[i].pavarde << right << fixed << setprecision(2) << A[i].VID << setw(18) << right << A[i].MED;
             fr << endl;
         }
         fr.close();
@@ -224,7 +221,7 @@ void Isvedimas(const list<Mokinys> &A, int MOK_kiekis, string isvedimas)
         throw runtime_error("Netinkama ivestis!");
 }
 
-void Isvedimas2(const list<Mokinys> &A, int MOK_kiekis, string isvedimas)
+void Isvedimas2(const deque<Mokinys> &A, int MOK_kiekis, string isvedimas)
 {
     auto start = std::chrono::high_resolution_clock::now();
     auto st = start;
@@ -233,9 +230,9 @@ void Isvedimas2(const list<Mokinys> &A, int MOK_kiekis, string isvedimas)
     fr << setfill('-') << setw(80) << " " << endl;
     fr << setfill(' ');
 
-    for (const auto &mok : A)
+    for (int i = 0; i < MOK_kiekis; i++)
     {
-        fr << setw(20) << left << mok.vardas << setw(20) << left << mok.pavarde << right << fixed << setprecision(2) << mok.VID << setw(18) << right << mok.MED;
+        fr << setw(20) << left << A[i].vardas << setw(20) << left << A[i].pavarde << right << fixed << setprecision(2) << A[i].VID << setw(18) << right << A[i].MED;
         fr << endl;
     }
     fr.close();
@@ -243,30 +240,30 @@ void Isvedimas2(const list<Mokinys> &A, int MOK_kiekis, string isvedimas)
     cout << "Studentu isvedimas i failus uztruko: " << diff.count() << "s\n";
 }
 
-void Rikiavimas(list<Mokinys> &Mokslinciai, list<Mokinys> &Nuskriaustieji, list<int> &IrasuSk)
+void Rikiavimas(deque<Mokinys> &Mokslinciai, deque<Mokinys> &Nuskriaustieji, deque<int> &IrasuSk)
 {
     char kint;
     cout << "Pagal ka rikiuoti: varda, pavarde, vidurki, mediana?(v, p, V, m)" << endl;
     cin >> kint;
     if (kint == 'V')
     {
-        Mokslinciai.sort(PagalVidurki);
-        Nuskriaustieji.sort(PagalVidurki);
+        sort(Mokslinciai.begin(), Mokslinciai.end(), PagalVidurki);
+        sort(Nuskriaustieji.begin(), Nuskriaustieji.end(), PagalVidurki);
     }
     else if (kint == 'm')
     {
-        Mokslinciai.sort(PagalMediana);
-        Nuskriaustieji.sort(PagalMediana);
+        sort(Mokslinciai.begin(), Mokslinciai.end(), PagalMediana);
+        sort(Nuskriaustieji.begin(), Nuskriaustieji.end(), PagalMediana);
     }
     else if (kint == 'v')
     {
-        Mokslinciai.sort(PagalVarda);
-        Nuskriaustieji.sort(PagalVarda);
+        sort(Mokslinciai.begin(), Mokslinciai.end(), PagalVarda);
+        sort(Nuskriaustieji.begin(), Nuskriaustieji.end(), PagalVarda);
     }
     else if (kint == 'p')
     {
-        Mokslinciai.sort(PagalPavarde);
-        Nuskriaustieji.sort(PagalPavarde);
+        sort(Mokslinciai.begin(), Mokslinciai.end(), PagalPavarde);
+        sort(Nuskriaustieji.begin(), Nuskriaustieji.end(), PagalPavarde);
     }
     else
         throw runtime_error("Netinkama ivestis!");

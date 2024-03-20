@@ -1,7 +1,7 @@
 #ifndef FUNKCIJOS_H
 #define FUNKCIJOS_H
 
-#include "mokinys.h"
+#include "mokinys2.h"
 
 bool Patikrinimas(string kint);
 void Vidurkis(std::deque<Mokinys> &A);

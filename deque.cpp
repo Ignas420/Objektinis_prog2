@@ -1,5 +1,5 @@
-#include "mokinys.h"
-#include "funkcijos.h"
+#include "mokinys2.h"
+#include "funkcijos2.h"
 
 auto start1 = std::chrono::high_resolution_clock::now();
 
