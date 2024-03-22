@@ -50,43 +50,9 @@ bool PagalPavarde(const Mokinys &a, const Mokinys &b)
 {
     return a.pavarde > b.pavarde;
 }
-/* void FailuGeneravimas(){
-    cout << "~Naujo failo parametrai~" << endl;
-    ofstream fr(CRfv2);
 
-    if(!fr.is_open())
-        throw runtime_error("Failas nurodytoje vietoje neegzistuoja!");
-
-    int nd;
-    cout << "Iveskite namu darbu kieki: " << endl;
-    cin >> nd;
-    if(cin.fail())
-        throw runtime_error("Namu darbai turi buti skaicius!");
-
-    fr << setw(20) << left << "Vardas" << setw(20) << left << "Pavarde";
-    for(int i=0; i<nd; i++)
-        fr << setw(10) << left << "ND";
-    fr << setw(10) << left << "Egz." << endl;
-
-    int irasai;
-    cout << "Iveskite irasu skaiciu: " << endl;
-    cin >> irasai;
-
-    auto start = std::chrono::high_resolution_clock::now();
-    auto st = start;
-
-    for(int j=1; j<=irasai; j++){
-        fr << setw(20) << left << ("Vardas"+to_string(j)) << setw(20) << left << ("Pavarde"+to_string(j));
-        for(int i=0; i<nd; i++)
-            fr << setw(10) << left << rand()%10+1;
-        fr << setw(10) << left << rand()%10+1 << endl;
-    }
-    fr.close();
-    std::chrono::duration<double> diff = std::chrono::high_resolution_clock::now() - start;
-    cout << "Failo is "+ to_string(irasai) + " sukurimo laikas: " << diff.count() << "s\n";
-} */
-//
 double visasLaikas;
+
 void GeneruotiFailus(vector<Mokinys> &Nuskriaustieji, vector<Mokinys> &Mokslinciai, vector<int> &IrasuSk, vector<Mokinys> &A)
 {
     srand(time(NULL));
@@ -97,7 +63,7 @@ void GeneruotiFailus(vector<Mokinys> &Nuskriaustieji, vector<Mokinys> &Mokslinci
         auto start = std::chrono::high_resolution_clock::now();
         auto st = start;
         cout << "~FAILAS " + to_string(i) + "~" << endl;
-        string filename = "failas" + to_string(i) + ".txt";
+        string filename = "new_file" + to_string(i) + ".txt";
         ofstream fr(filename);
 
         if (!fr)
@@ -124,7 +90,7 @@ void GeneruotiFailus(vector<Mokinys> &Nuskriaustieji, vector<Mokinys> &Mokslinci
 
         visasLaikas += diff.count();
 
-        Skaitymas(Nuskriaustieji, Mokslinciai, IrasuSk, filename, A, i);
+        //Skaitymas(Nuskriaustieji, Mokslinciai, IrasuSk, filename, A, i);
     }
 }
 void Skaitymas(vector<Mokinys> &Nuskriaustieji, vector<Mokinys> &Mokslinciai, vector<int> &IrasuSk, string failas, vector<Mokinys> &A, int &temp)

@@ -175,52 +175,27 @@ int main()
             auto st1 = start1;
             string failas;
             int temp;
-            cout << "Ar norite generuoti naujus failus?(t/n) " << endl;
+            cout << "Iveskite 't'(taip) jei norite generuoti failus: " << endl;
             cin >> input3;
             if (input3 == 't')
                 GeneruotiFailus(Nuskriaustieji, Mokslinciai, IrasuSk, A);
-                
-            else if (input3 == 'n')
-            {
+            //else if (input3 == 'n')
+            //{
                 int kint5;
+                string filename;
                 cout << "Iveskite failu skaiciu: "<<endl;
                 cin >> kint5;
                 for(int i=0; i<kint5; i++){
-                    string filename = "failas" + to_string(i) + ".txt";
+                    if(input3 == 't')
+                        filename = "new_file" + to_string(i) + ".txt";
+                    else
+                        filename = "file" + to_string(i) + ".txt";
                     Skaitymas(Nuskriaustieji, Mokslinciai, IrasuSk, filename, A, i);
                 }
-            }
-            else
-                throw runtime_error("Netinkama ivestis!");
+            //}
+            //else
+                //throw runtime_error("Netinkama ivestis!");
             Vidurkis(A);
-
-            /* if (input3 == 't')
-            {
-                if (kint == 'V')
-                {
-                    sort(Mokslinciai.begin(), Mokslinciai.end(), PagalVidurki);
-                    sort(Nuskriaustieji.begin(), Nuskriaustieji.end(), PagalVidurki);
-                else if (kint == 'm')
-                {
-                    sort(Mokslinciai.begin(), Mokslinciai.end(), PagalMediana);
-                    sort(Nuskriaustieji.begin(), Nuskriaustieji.end(), PagalMediana);
-                }
-                else if (kint == 'v')
-                {
-                    sort(Mokslinciai.begin(), Mokslinciai.end(), PagalVarda);
-                    sort(Nuskriaustieji.begin(), Nuskriaustieji.end(), PagalVarda);
-                }
-                else if (kint == 'p')
-                {
-                    sort(Mokslinciai.begin(), Mokslinciai.end(), PagalPavarde);
-                    sort(Nuskriaustieji.begin(), Nuskriaustieji.end(), PagalPavarde);
-                }
-                else
-                {
-                    throw runtime_error("Netinkama ivestis!");
-                    return 1;
-                }
-            } */
         }
         else
         {
