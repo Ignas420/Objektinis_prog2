@@ -181,12 +181,22 @@ int main()
                 GeneruotiFailus(Nuskriaustieji, Mokslinciai, IrasuSk, A);
             //else if (input3 == 'n')
             //{
+                char kint6;
                 int kint5;
                 string filename;
+
+                cout << "Norite skaityti naujus ar senus failus?(n/s): " << endl;
+                cin >> kint6;
+                if(kint6 != 'n' && kint6 != 's')
+                    throw runtime_error("Netinkama ivestis!");
+
                 cout << "Iveskite failu skaiciu: "<<endl;
                 cin >> kint5;
+                if(cin.fail())
+                    throw runtime_error("Netinkama ivestis!");
+
                 for(int i=0; i<kint5; i++){
-                    if(input3 == 't')
+                    if(kint6 == 'n')
                         filename = "new_file" + to_string(i) + ".txt";
                     else
                         filename = "file" + to_string(i) + ".txt";

@@ -33,22 +33,22 @@ void Vidurkis(deque<Mokinys> &A)
 
 bool PagalVidurki(const Mokinys &a, const Mokinys &b)
 {
-    return a.VID > b.VID;
+    return a.VID < b.VID;
 }
 
 bool PagalMediana(const Mokinys &a, const Mokinys &b)
 {
-    return a.MED > b.MED;
+    return a.MED < b.MED;
 }
 
 bool PagalVarda(const Mokinys &a, const Mokinys &b)
 {
-    return a.vardas > b.vardas;
+    return a.vardas < b.vardas;
 }
 
 bool PagalPavarde(const Mokinys &a, const Mokinys &b)
 {
-    return a.pavarde > b.pavarde;
+    return a.pavarde < b.pavarde;
 }
 
 double visasLaikas;
@@ -56,14 +56,14 @@ double visasLaikas;
 void GeneruotiFailus(deque<Mokinys> &Nuskriaustieji, deque<Mokinys> &Mokslinciai, deque<int> &IrasuSk, deque<Mokinys> &A)
 {
     srand(time(NULL));
-    visasLaikas = 0.0;
 
     for (int i = 0; i < IrasuSk.size(); i++)
     {
         auto start = std::chrono::high_resolution_clock::now();
         auto st = start;
         cout << "~FAILAS " + to_string(i) + "~" << endl;
-        string filename = "failas" + to_string(i) + ".txt";
+        cout << "Genruojama..." << endl;
+        string filename = "new_file" + to_string(i) + ".txt";
         ofstream fr(filename);
 
         if (!fr)
@@ -85,20 +85,14 @@ void GeneruotiFailus(deque<Mokinys> &Nuskriaustieji, deque<Mokinys> &Mokslinciai
         }
 
         fr.close();
-        std::chrono::duration<double> diff = std::chrono::high_resolution_clock::now() - start;
-        cout << "Failo " + to_string(i) + " kurimo laikas: " << diff.count() << "s\n";
 
-        visasLaikas += diff.count();
-
-        Skaitymas(Nuskriaustieji, Mokslinciai, IrasuSk, filename, A, i);
+        //Skaitymas(Nuskriaustieji, Mokslinciai, IrasuSk, filename, A, i);
     }
 }
 
 void Skaitymas(deque<Mokinys> &Nuskriaustieji, deque<Mokinys> &Mokslinciai, deque<int> &IrasuSk, string failas, deque<Mokinys> &A, int &temp)
 {
-
-    auto start1 = std::chrono::high_resolution_clock::now();
-    auto st1 = start1;
+    visasLaikas = 0.0;
 
     string eil;
     ifstream fd(failas);
@@ -139,13 +133,10 @@ void Skaitymas(deque<Mokinys> &Nuskriaustieji, deque<Mokinys> &Mokslinciai, dequ
     fd.close();
     std::chrono::duration<double> diff = std::chrono::high_resolution_clock::now() - start;
     cout << "Nuskaitymo laikas: " << diff.count() << "s\n";
+    visasLaikas += diff.count();
+
     Vidurkis(A);
-    StudentuRusiavimas(Nuskriaustieji, Mokslinciai, A, IrasuSk, failas, temp);
-
-    std::chrono::duration<double> diff1 = std::chrono::high_resolution_clock::now() - start1;
-    cout << "Visa programa " + to_string(temp) + " uztruko: " << diff1.count() << "s\n";
-
-    visasLaikas += diff1.count();
+    StudentuRusiavimas2(Nuskriaustieji, Mokslinciai, A, IrasuSk, failas, temp);
 
     cout << endl;
 }
@@ -154,9 +145,19 @@ void StudentuRusiavimas(deque<Mokinys> &Nuskriaustieji, deque<Mokinys> &Mokslinc
 {
     string filename = "nuskriaustieji" + to_string(temp) + ".txt";
     string filename1 = "mokslinciai." + to_string(temp) + ".txt";
+
     int kint;
     auto start = std::chrono::high_resolution_clock::now();
     auto st = start;
+
+    sort(A.begin(), A.end(), PagalVidurki);
+
+    std::chrono::duration<double> diff = std::chrono::high_resolution_clock::now() - start;
+    cout << "Studentu rusiavimas didejimo tvarka uztruko: " << diff.count() << "s\n";
+    visasLaikas +=diff.count();
+
+    auto start1 = std::chrono::high_resolution_clock::now();
+    auto st1 = start1;
 
     for (int i = 0; i < A.size(); i++)
     {
@@ -166,18 +167,50 @@ void StudentuRusiavimas(deque<Mokinys> &Nuskriaustieji, deque<Mokinys> &Mokslinc
             Mokslinciai.push_back(A[i]);
     }
 
-    std::chrono::duration<double> diff = std::chrono::high_resolution_clock::now() - start;
-    cout << "Studentu rusiavimas uztruko: " << diff.count() << "s\n";
+    std::chrono::duration<double> diff1 = std::chrono::high_resolution_clock::now() - start1;
+    cout << "Studentu rusiavimas uztruko: " << diff1.count() << "s\n";
+    visasLaikas += diff1.count();
 
-    sort(Mokslinciai.begin(), Mokslinciai.end(), PagalVidurki);
-    sort(Nuskriaustieji.begin(), Nuskriaustieji.end(), PagalVidurki);
+    cout << "Visa programa " + to_string(temp) + " uztruko: " << visasLaikas << "s\n";
 
-    cout << "~Mokslinciai~" << endl;
     Isvedimas2(Mokslinciai, Mokslinciai.size(), filename);
-    cout << "~Nuskriaustieji~" << endl;
     Isvedimas2(Nuskriaustieji, Nuskriaustieji.size(), filename1);
 }
+void StudentuRusiavimas2(deque<Mokinys> &Nuskriaustieji, deque<Mokinys> &Mokslinciai, deque<Mokinys> &A, deque<int> &IrasuSk, string failas, int &temp)
+{
+    string filename = "nuskriaustieji" + to_string(temp) + ".txt";
+    string filename1 = "mokslinciai." + to_string(temp) + ".txt";
 
+    int kint;
+    auto start = std::chrono::high_resolution_clock::now();
+    auto st = start;
+
+    sort(A.begin(), A.end(), PagalVidurki);
+
+    std::chrono::duration<double> diff = std::chrono::high_resolution_clock::now() - start;
+    cout << "Studentu rusiavimas didejimo tvarka uztruko: " << diff.count() << "s\n";
+    visasLaikas +=diff.count();
+
+    auto start1 = std::chrono::high_resolution_clock::now();
+    auto st1 = start1;
+
+    for (int i=A.size() - 1; i >= 0; i--)
+    {
+        if (A[i].VID > 5.0){
+            Nuskriaustieji.push_back(A[i]);
+            A.pop_back();
+        }
+    }
+
+    std::chrono::duration<double> diff1 = std::chrono::high_resolution_clock::now() - start1;
+    cout << "Studentu rusiavimas uztruko: " << diff1.count() << "s\n";
+    visasLaikas += diff1.count();
+
+    cout << "Visa programa " + to_string(temp) + " uztruko: " << visasLaikas << "s\n";
+
+    Isvedimas2(A, A.size(), filename);
+    Isvedimas2(Nuskriaustieji, Nuskriaustieji.size(), filename1);
+}
 void Isvedimas(const deque<Mokinys> &A, int MOK_kiekis, string isvedimas)
 {
     char kint;
@@ -223,8 +256,8 @@ void Isvedimas(const deque<Mokinys> &A, int MOK_kiekis, string isvedimas)
 
 void Isvedimas2(const deque<Mokinys> &A, int MOK_kiekis, string isvedimas)
 {
-    auto start = std::chrono::high_resolution_clock::now();
-    auto st = start;
+  /*   auto start = std::chrono::high_resolution_clock::now();
+    auto st = start; */
     ofstream fr(isvedimas);
     fr << setw(20) << left << "Vardas" << setw(20) << left << "Pavarde" << setw(20) << right << "Galutinis (Vid.) / Galutinis(Med.)" << endl;
     fr << setfill('-') << setw(80) << " " << endl;
@@ -236,8 +269,8 @@ void Isvedimas2(const deque<Mokinys> &A, int MOK_kiekis, string isvedimas)
         fr << endl;
     }
     fr.close();
-    std::chrono::duration<double> diff = std::chrono::high_resolution_clock::now() - start;
-    cout << "Studentu isvedimas i failus uztruko: " << diff.count() << "s\n";
+    /* std::chrono::duration<double> diff = std::chrono::high_resolution_clock::now() - start;
+    cout << "Studentu isvedimas i failus uztruko: " << diff.count() << "s\n"; */
 }
 
 void Rikiavimas(deque<Mokinys> &Mokslinciai, deque<Mokinys> &Nuskriaustieji, deque<int> &IrasuSk)

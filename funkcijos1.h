@@ -15,5 +15,6 @@ void Rikiavimas (list<Mokinys>& Mokslinciai, list<Mokinys>& Nuskriaustieji, list
 void GeneruotiFailus (list<Mokinys>& Nuskriaustieji, list<Mokinys>& Mokslinciai, list<int>& IrasuSk, list<Mokinys>& A);
 void Skaitymas (list<Mokinys>& Nuskriaustieji, list<Mokinys>& Mokslinciai, list<int>& IrasuSk, string failas, list<Mokinys>& A, int& temp);
 void StudentuRusiavimas (list<Mokinys>& Nuskriaustieji, list<Mokinys>& Mokslinciai, list<Mokinys>& A, list<int>& IrasuSk, string failas, int& temp);
+void StudentuRusiavimas2(list<Mokinys> &Nuskriaustieji, list<Mokinys> &Mokslinciai, list<Mokinys> &A, list<int> &IrasuSk, string failas, int &temp);
 
 #endif
