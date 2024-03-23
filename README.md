@@ -1,6 +1,6 @@
 Konteinerių testavimas v1.0
 
-Programos naudojimas:
+Programos naudojimas veikimo metu:
 
 Paleidziama programa su komandomis: g++ -o programa vektoriai.cpp/list.cpp/deque.cpp mokinys.cpp/mokinys1.cpp/mokinys2.cpp ir ./programa
 
@@ -23,30 +23,33 @@ Vos paleidus programa atsiras pasirinkimas ar norime ivesti duomenis ar skaityti
 
 2.3 Galiausiai, kaip ir anksciau, bus isvedami apytiksliai testavimu laikai ekrane bei sukuriami nauji failai, kuriuose yra surusiuoti studentai pagal vidurki (nuskriaustieji/mokslinciai)
 
-Sistemos parametrai:
+Testavimas su 1000, 10000, 100000, 1000000, 10000000 failais, naudojant 1-aja strategija:
 
-![image](https://github.com/Ignas420/Objektinis_prog/assets/145566919/d13edf9e-5d6e-4c45-a3ac-88abff2b612c)
-![image](https://github.com/Ignas420/Objektinis_prog/assets/145566919/2a6e6423-bb80-42e7-9fbe-671f7b0e0958)
+Vektoriai:
 
-Testavimo rezultatai:
+![image](https://github.com/Ignas420/Objektinis_prog/assets/145566919/380a1e9f-6b7c-4dc9-8e7c-d06c4ad20110)
 
-Programos veikimas su:
+List:
 
-Vector
+![image](https://github.com/Ignas420/Objektinis_prog/assets/145566919/aae8a168-7f04-4a31-ae12-b957508036b1)
 
-![image](https://github.com/Ignas420/Objektinis_prog/assets/145566919/cee5cf10-24ea-44e1-b33b-6276ee954ec8)
+Deque:
 
-std::vector yra sparciausiai veikiantis, remiantis testavimo rezultatais, jis yra prieinamas per konkretu prieigos mechanizma, be jokio papildomo strukturizavimo ar sudetingumo bei turi galimybe greitai prieiti prie visu arba tam tikru duomenu elementu, tiesiogiai ir efektyviai juos pasiekiant
+![image](https://github.com/Ignas420/Objektinis_prog/assets/145566919/a1045c58-0f1e-4814-9e11-175733a95ecc)
 
-List
 
-![image](https://github.com/Ignas420/Objektinis_prog/assets/145566919/92726075-9cd0-472b-a562-1cae7c1f042a)
+Testavimas su 1000, 10000, 100000, 1000000, 10000000 failais, naudojant 2-aja strategija:
 
-std::list, pagal testavimo rezultatus, veike leciau, tai galejo lemti tai, kad sis sarasas yra su rodyklemis, o tai reiskia, kad reikejo iteruoti per visa sarasa, norint pasiekti tam tikrus elementus
+Vektoriai:
 
-Deque
+![image](https://github.com/Ignas420/Objektinis_prog/assets/145566919/f96801b5-d68c-4f77-a380-fac2e279b547)
 
-![image](https://github.com/Ignas420/Objektinis_prog/assets/145566919/9ec26d2b-8477-4729-aa87-8849ed6ef9ae)
+List:
 
-std::deque, mano gautais rezultatais, uztruko ilgiausiai, nors sis sarasas ir suteikia mums greita prieeiga prie pradzios ir pabaigos, elementu prieiga nera tiesiogine - reikia keliauti per keliu masyvu sarasa
+![image](https://github.com/Ignas420/Objektinis_prog/assets/145566919/763aabc1-f66a-4953-8381-8c08dda67b88)
+
+Deque:
+
+![image](https://github.com/Ignas420/Objektinis_prog/assets/145566919/b69b15d0-0d41-43f6-9b6e-31be419c385f)
+
 
