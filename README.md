@@ -1,5 +1,29 @@
 Konteinerių testavimas v1.0
 
+Makefile set-up:
+Makefile idiegimas naudojant Chocolatey (Windows)
+
+Isitikinkite, kad turite Chocolatey idiegima: patikrinkite, ar jusu kompiuteryje yra idiegta Chocolatey. Jei ne, idiekite pagal instrukcijas.
+
+Idiekite Makefile: atidarykite PowerShell kaip administratorius ir ivykdykite sia komanda:
+
+choco install make
+
+Patikrinkite idiegima: patikrinkite, ar Makefile sekmingai idiegtas, vykdydami komanda:
+
+make --version
+
+Jei viskas sekminga, turetumete pamatyti Make versijos informacija
+
+Makefile idiegimas naudojant kitus metodus
+MacOS: Makefile iprastai yra idiegtas standartinėje MacOS distribucijoje, todel papildomu veiksmu paprastai nereikia
+
+Linux: Daugumoje Linux distribuciju Makefile taip pat yra idiegtas is anksto. Jei reikia, naudokite savo paketu tvarkykle, pvz., apt-get, yum, dnf, arba kita pagal distribucija
+
+Windows (be Chocolatey): Noredami idiegti Makefile Windows sistemoje be Chocolatey, galite naudoti rankinius idiegimo failus, kuriuos galite rasti internete. Paprastai tie failai turi .exe pletini ir gali buti lengvai idiegti, sekdamie pridedamas instrukcijas
+
+
+
 Programos naudojimas veikimo metu:
 
 Paleidziama programa su komandomis: g++ -o programa vektoriai.cpp/list.cpp/deque.cpp mokinys.cpp/mokinys1.cpp/mokinys2.cpp ir ./programa
@@ -14,14 +38,18 @@ Vos paleidus programa atsiras pasirinkimas ar norime ivesti duomenis ar skaityti
 
 1.3 Galiausiai reikes pasirinkti kur norime matyti duomenis ekrane ar faile
 
-3. Jei pacioje pradzioje bus pasirinktas skaitymas, jusu bus klausiama ar norite generuoti naujus failus, ar tik skaityti
-(SVARBU! Jei pasirenkate tik skaityma - tai reiskia, kad failus jau turite ir reikes irasyti failu kieki!)
+2. Jei pacioje pradzioje bus pasirinktas skaitymas, jusu bus klausiama ar norite generuoti naujus failus, jei ivesite 't'(taip), bus generuojami nauji failai, jei ivesite bet koki kita simboli, programa veiks toliau
 
-2.1 Irasius failu kieki, jie bus nuskaitomi, isvedami apytiksliai testavimu laikai ekrane bei sukuriami nauji failai, kuriuose yra surusiuoti studentai pagal vidurki (nuskriaustieji/mokslinciai)
+2.1 Toliau, jusu bus klausiama ar norite skaityti naujai sukurtus failus, ar jau turimus
 
-2.2 Jei buvo pasirinktas nauju failu generavimas, bus sukurti visiskai nauji failai, pagal jusu pateiktas reiksmes vector/list/deque "IrasuSk"
+2.2 Bus prasoma ivesti, pasirinktinai, turimu/nauju failu kieki, jie bus nuskaitomi, isvedami apytiksliai testavimu laikai ekrane bei sukuriami nauji failai, kuriuose yra surusiuoti studentai pagal vidurki (nuskriaustieji/mokslinciai)
 
 2.3 Galiausiai, kaip ir anksciau, bus isvedami apytiksliai testavimu laikai ekrane bei sukuriami nauji failai, kuriuose yra surusiuoti studentai pagal vidurki (nuskriaustieji/mokslinciai)
+
+Sistemos specifikacijos:
+
+
+
 
 Testavimas su 1000, 10000, 100000, 1000000, 10000000 failais, naudojant 1-aja strategija:
 
@@ -52,4 +80,7 @@ Deque:
 
 ![image](https://github.com/Ignas420/Objektinis_prog/assets/145566919/b69b15d0-0d41-43f6-9b6e-31be419c385f)
 
+Is rezultatu matoma, kad vektoriai gerokai pranoksta list ir deque konteinerius. List konteineriai 2 kartus pagreiteja kai yra naudojama 1-oji strategija, o deque taip pat 2 kartus pagreiteja kai yra naudojama 2-oji strategija. Nors funkcijos atliekamos su vector konteineriu yra greiciausios, taciau is rezultatu yra matoma, kad su sio tipo konteineriais efektyviau yra naudoti 2-aja strategija. 
+
+Kalbant apie skaiciavimo efektyvuma, vektoriai pranoksta list<> ir deque<> konteinerius del savo gretimos atminties paskirstymo, suteikdami greitesne prieiga prie elementu. Sarasai, nors ir siek tiek letesni, taip siulo vidutiniskai greita prieiga naudojant 1-aja strategija, palyginus su deque<> tipo konteineriais, jie igyvendinami kaip kintancio dydzio masyvai. Deque<> konteineriai yra optimizuoti efektyviam iterpimui ir istrynimui abiejuose duomenu saraso galuose, gali sukelti pertekline apkrova atsitiktinei prieigai, todel jie gali būti letesni tam tikrose operacijose.
 
