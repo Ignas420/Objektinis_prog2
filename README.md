@@ -84,3 +84,14 @@ Is rezultatu matoma, kad vektoriai gerokai pranoksta list ir deque konteinerius.
 
 Kalbant apie skaiciavimo efektyvuma, vektoriai pranoksta list<> ir deque<> konteinerius del savo gretimos atminties paskirstymo, suteikdami greitesne prieiga prie elementu. Sarasai, nors ir siek tiek letesni, taip siulo vidutiniskai greita prieiga naudojant 1-aja strategija, palyginus su deque<> tipo konteineriais, jie igyvendinami kaip kintancio dydzio masyvai. Deque<> konteineriai yra optimizuoti efektyviam iterpimui ir istrynimui abiejuose duomenu saraso galuose, gali sukelti pertekline apkrova atsitiktinei prieigai, todel jie gali būti letesni tam tikrose operacijose.
 
+Testavimo laikai, naudojant modifikuota 2-aja strategija su naujais algoritmais, vector<> konteineriais:
+
+![image](https://github.com/Ignas420/Objektinis_prog/assets/145566919/8c6ec94a-22d1-4a99-a014-63680a117220)
+
+Vidutiniu laiku skaiciavimas:
+
+| Struktūra | Nuskaitymo vidurkis (s) | Rusiavimo didejimo tvarka vidurkis (s) | Studentu skirstymo vidurkis (s) | Visu programu veikimo vidurkis (s) |
+|-----------|--------------------------|----------------------------------------|----------------------------------|--------------------------------------|
+| Vektoriai | 12.311508784             | 5.023293878                            | 0.153422888                      | 17.4743382                           |
+| List      | 22.25321922              | 3.93077876                             | 33.29937836                      | 79.450743226                         |
+| Deque     | 13.75983258              | 24.96002994                            | 70.9988333                       | 119.66582334                         |
