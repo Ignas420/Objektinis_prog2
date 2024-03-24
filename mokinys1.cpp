@@ -140,7 +140,7 @@ void Skaitymas(list<Mokinys> &Nuskriaustieji, list<Mokinys> &Mokslinciai, list<i
     cout << "Nuskaitymo laikas: " << diff.count() << "s\n";
     visasLaikas += diff.count();
     Vidurkis(A);
-    StudentuRusiavimas2(Nuskriaustieji, Mokslinciai, A, IrasuSk, failas, temp);
+    StudentuRusiavimas(Nuskriaustieji, Mokslinciai, A, IrasuSk, failas, temp);
 
     cout << endl;
 }
