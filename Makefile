@@ -1,34 +1,32 @@
 CC=g++
-CFLAGS=-std=c++11 -Wall
 
-all: vektoriai deque list
+CFLAGS=-c -Wall
 
-vektoriai: vektoriai.o mokinys.o
-    $(CC) $(CFLAGS) vektoriai.o mokinys.o -o vektoriai
+VEKTORIAI_SOURCES=vektoriai.cpp mokinys.cpp funkcijos.h
+LIST_SOURCES=list.cpp mokinys1.cpp funkcijos1.h
+DEQUE_SOURCES=deque.cpp mokinys2.cpp funkcijos2.h
 
-vektoriai.o: vektoriai.cpp mokinys.h
-    $(CC) $(CFLAGS) -c vektoriai.cpp
+VEKTORIAI_OBJECTS=$(VEKTORIAI_SOURCES:.cpp=.o)
+LIST_OBJECTS=$(LIST_SOURCES:.cpp=.o)
+DEQUE_OBJECTS=$(DEQUE_SOURCES:.cpp=.o)
 
-mokinys.o: mokinys.cpp mokinys.h funkcijos.h
-    $(CC) $(CFLAGS) -c mokinys.cpp
+VEKTORIAI_EXECUTABLE=vektoriai
+LIST_EXECUTABLE=list
+DEQUE_EXECUTABLE=deque
 
-deque: deque.o mokinys2.o
-    $(CC) $(CFLAGS) deque.o mokinys2.o -o deque
+all: $(VEKTORIAI_EXECUTABLE) $(LIST_EXECUTABLE) $(DEQUE_EXECUTABLE)
 
-deque.o: deque.cpp mokinys2.h
-    $(CC) $(CFLAGS) -c deque.cpp
+$(VEKTORIAI_EXECUTABLE): $(VEKTORIAI_OBJECTS)
+	$(CC) $(VEKTORIAI_OBJECTS) -o $@
 
-mokinys2.o: mokinys2.cpp mokinys2.h funkcijos2.h
-    $(CC) $(CFLAGS) -c mokinys2.cpp
+$(LIST_EXECUTABLE): $(LIST_OBJECTS)
+	$(CC) $(LIST_OBJECTS) -o $@
 
-list: list.o mokinys1.o
-    $(CC) $(CFLAGS) list.o mokinys1.o -o list
+$(DEQUE_EXECUTABLE): $(DEQUE_OBJECTS)
+	$(CC) $(DEQUE_OBJECTS) -o $@
 
-list.o: list.cpp mokinys1.h
-    $(CC) $(CFLAGS) -c list.cpp
-
-mokinys1.o: mokinys1.cpp mokinys1.h funkcijos1.h
-    $(CC) $(CFLAGS) -c mokinys1.cpp
+.cpp.o:
+	$(CC) $(CFLAGS) $< -o $@
 
 clean:
-    del -rf *.o vektoriai deque list
+	del *.o *.exe
