@@ -1,9 +1,9 @@
-Konteinerių testavimas v1.0
+**Konteinerių testavimas v1.0**
 
 Makefile set-up:
-Makefile idiegimas naudojant Chocolatey (Windows)
+**Makefile idiegimas naudojant Chocolatey (Windows)**
 
-Isitikinkite, kad turite Chocolatey idiegima: patikrinkite, ar jusu kompiuteryje yra idiegta Chocolatey. Jei ne, idiekite pagal instrukcijas.
+Isitikinkite, kad turite Chocolatey idiegima: patikrinkite, ar jusu kompiuteryje yra idiegta Chocolatey. Jei ne, idiekite pagal instrukcijas https://chocolatey.org/install.
 
 Idiekite Makefile: atidarykite PowerShell kaip administratorius ir ivykdykite sia komanda:
 
@@ -16,17 +16,17 @@ make --version
 Jei viskas sekminga, turetumete pamatyti Make versijos informacija
 
 Makefile idiegimas naudojant kitus metodus
-MacOS: Makefile iprastai yra idiegtas standartinėje MacOS distribucijoje, todel papildomu veiksmu paprastai nereikia
+**MacOS:** Makefile iprastai yra idiegtas standartinėje MacOS distribucijoje, todel papildomu veiksmu paprastai nereikia
 
-Linux: Daugumoje Linux distribuciju Makefile taip pat yra idiegtas is anksto. Jei reikia, naudokite savo paketu tvarkykle, pvz., apt-get, yum, dnf, arba kita pagal distribucija
+**Linux:** Daugumoje Linux distribuciju Makefile taip pat yra idiegtas is anksto. Jei reikia, naudokite savo paketu tvarkykle, pvz., apt-get, yum, dnf, arba kita pagal distribucija
 
-Windows (be Chocolatey): Noredami idiegti Makefile Windows sistemoje be Chocolatey, galite naudoti rankinius idiegimo failus, kuriuos galite rasti internete. Paprastai tie failai turi .exe pletini ir gali buti lengvai idiegti, sekdamie pridedamas instrukcijas
+**Windows (be Chocolatey):** Noredami idiegti Makefile Windows sistemoje be Chocolatey, galite naudoti rankinius idiegimo failus, kuriuos galite rasti internete. Paprastai tie failai turi .exe pletini ir gali buti lengvai idiegti, sekdamie pridedamas instrukcijas
 
+Norint pradeti, i terminala reikia ivesti "make", kai viskas bus sukompiliuota, galima testi su programa, jei norima, galima rasyti "make clean" norint istrinti .o ir .exe failus
 
+**Programos naudojimas veikimo metu:**
 
-Programos naudojimas veikimo metu:
-
-Paleidziama programa su komandomis: g++ -o programa vektoriai.cpp/list.cpp/deque.cpp mokinys.cpp/mokinys1.cpp/mokinys2.cpp ir ./programa
+Vartotojas pasirenka, su kokiu konteineriu norima vygdyti programa ir pasirinktinai i terminala parasoma: ./vektoriai , ./list arba ./deque
 
 Vos paleidus programa atsiras pasirinkimas ar norime ivesti duomenis ar skaityti is failo
 
@@ -46,12 +46,16 @@ Vos paleidus programa atsiras pasirinkimas ar norime ivesti duomenis ar skaityti
 
 2.3 Galiausiai, kaip ir anksciau, bus isvedami apytiksliai testavimu laikai ekrane bei sukuriami nauji failai, kuriuose yra surusiuoti studentai pagal vidurki (nuskriaustieji/mokslinciai)
 
-Sistemos specifikacijos:
+**Sistemos specifikacijos:**
+
+CPU: 12th Gen Intel(R) Core(TM) i5-12450H
+
+RAM: 16.0 GB 3200 MHz SODIMM
+
+Disk: SSD 477 GB
 
 
-
-
-Testavimas su 1000, 10000, 100000, 1000000, 10000000 failais, naudojant 1-aja strategija:
+**Testavimas su 1000, 10000, 100000, 1000000, 10000000 failais, naudojant 1-aja strategija:**
 
 Vektoriai:
 
@@ -66,7 +70,7 @@ Deque:
 ![image](https://github.com/Ignas420/Objektinis_prog/assets/145566919/a1045c58-0f1e-4814-9e11-175733a95ecc)
 
 
-Testavimas su 1000, 10000, 100000, 1000000, 10000000 failais, naudojant 2-aja strategija:
+**Testavimas su 1000, 10000, 100000, 1000000, 10000000 failais, naudojant 2-aja strategija:**
 
 Vektoriai:
 
@@ -84,11 +88,11 @@ Is rezultatu matoma, kad vektoriai gerokai pranoksta list ir deque konteinerius.
 
 Kalbant apie skaiciavimo efektyvuma, vektoriai pranoksta list<> ir deque<> konteinerius del savo gretimos atminties paskirstymo, suteikdami greitesne prieiga prie elementu. Sarasai, nors ir siek tiek letesni, taip siulo vidutiniskai greita prieiga naudojant 1-aja strategija, palyginus su deque<> tipo konteineriais, jie igyvendinami kaip kintancio dydzio masyvai. Deque<> konteineriai yra optimizuoti efektyviam iterpimui ir istrynimui abiejuose duomenu saraso galuose, gali sukelti pertekline apkrova atsitiktinei prieigai, todel jie gali būti letesni tam tikrose operacijose.
 
-Testavimo laikai, naudojant modifikuota 2-aja strategija su naujais algoritmais, vector<> konteineriais:
+**Testavimo laikai, naudojant modifikuota 2-aja strategija su naujais algoritmais, vector<> konteineriais:**
 
 ![image](https://github.com/Ignas420/Objektinis_prog/assets/145566919/8c6ec94a-22d1-4a99-a014-63680a117220)
 
-Vidutiniu laiku skaiciavimas:
+**Vidutiniu laiku skaiciavimas:**
 
 | Struktūra | Nuskaitymo vidurkis (s) | Rusiavimo didejimo tvarka vidurkis (s) | Studentu skirstymo vidurkis (s) | Visu programu veikimo vidurkis (s) |
 |-----------|--------------------------|----------------------------------------|----------------------------------|--------------------------------------|
