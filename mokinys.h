@@ -26,14 +26,17 @@ const char CDfv0[] = "studentai10000.txt";
 const char CDfv1[] = "studentai100000.txt";
 const char CDfv2[] = "studentai1000000.txt";
 
-struct Mokinys
-{
+class Mokinys {
+public:
     string vardas;
     string pavarde;
     vector<int> ND;
     int egzaminas;
     double VID;
     double MED;
+
+    Mokinys();
+    ~Mokinys();
 };
 
 #endif
