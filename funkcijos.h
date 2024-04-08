@@ -16,4 +16,5 @@ void Skaitymas(vector<Mokinys>& Nuskriaustieji, vector<Mokinys>& Mokslinciai, ve
 void StudentuRusiavimas(vector<Mokinys>& Nuskriaustieji, vector<Mokinys>& Mokslinciai, vector<Mokinys>& A, vector<int>& IrasuSk, string failas, int& temp);
 void StudentuRusiavimas2(vector<Mokinys> &Nuskriaustieji, vector<Mokinys> &Mokslinciai, vector<Mokinys> &A, vector<int> &IrasuSk, string failas, int &temp);
 
+
 #endif

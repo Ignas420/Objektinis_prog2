@@ -1,6 +1,7 @@
 #include "mokinys.h"
 #include "funkcijos.h"
 
+
 bool Patikrinimas(string kint)
 {
     const int ilgis = kint.length();

@@ -26,6 +26,7 @@ const char CDfv0[] = "studentai10000.txt";
 const char CDfv1[] = "studentai100000.txt";
 const char CDfv2[] = "studentai1000000.txt";
 
+
 class Mokinys {
 public:
     string vardas;
