@@ -1,7 +1,7 @@
 #include "mokinys1.h"
 #include "funkcijos1.h"
 
-int main() {
+int Mokinys :: main() {
     try {
         int n, m;
         list<int> IrasuSk = {1000, 10000, 100000, 1000000, 10000000};
