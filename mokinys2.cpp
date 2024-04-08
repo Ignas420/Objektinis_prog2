@@ -15,7 +15,7 @@ bool Patikrinimas(string kint)
     return true;
 }
 
-void Vidurkis(deque<Mokinys> &A)
+void Mokinys :: Vidurkis(deque<Mokinys> &A)
 {
     for (int i = 0; i < A.size(); i++)
     {
@@ -31,22 +31,22 @@ void Vidurkis(deque<Mokinys> &A)
     }
 }
 
-bool PagalVidurki(const Mokinys &a, const Mokinys &b)
+bool Mokinys :: PagalVidurki(const Mokinys &a, const Mokinys &b)
 {
     return a.VID < b.VID;
 }
 
-bool PagalMediana(const Mokinys &a, const Mokinys &b)
+bool Mokinys :: PagalMediana(const Mokinys &a, const Mokinys &b)
 {
     return a.MED < b.MED;
 }
 
-bool PagalVarda(const Mokinys &a, const Mokinys &b)
+bool Mokinys :: PagalVarda(const Mokinys &a, const Mokinys &b)
 {
     return a.vardas < b.vardas;
 }
 
-bool PagalPavarde(const Mokinys &a, const Mokinys &b)
+bool Mokinys :: PagalPavarde(const Mokinys &a, const Mokinys &b)
 {
     return a.pavarde < b.pavarde;
 }
@@ -90,7 +90,7 @@ void GeneruotiFailus(deque<Mokinys> &Nuskriaustieji, deque<Mokinys> &Mokslinciai
     }
 }
 
-void Skaitymas(deque<Mokinys> &Nuskriaustieji, deque<Mokinys> &Mokslinciai, deque<int> &IrasuSk, string failas, deque<Mokinys> &A, int &temp)
+void Mokinys :: Skaitymas(deque<Mokinys> &Nuskriaustieji, deque<Mokinys> &Mokslinciai, deque<int> &IrasuSk, string failas, deque<Mokinys> &A, int &temp)
 {
     visasLaikas = 0.0;
 
@@ -141,7 +141,7 @@ void Skaitymas(deque<Mokinys> &Nuskriaustieji, deque<Mokinys> &Mokslinciai, dequ
     cout << endl;
 }
 
-void StudentuRusiavimas(deque<Mokinys> &Nuskriaustieji, deque<Mokinys> &Mokslinciai, deque<Mokinys> &A, deque<int> &IrasuSk, string failas, int &temp)
+void Mokinys :: StudentuRusiavimas(deque<Mokinys> &Nuskriaustieji, deque<Mokinys> &Mokslinciai, deque<Mokinys> &A, deque<int> &IrasuSk, string failas, int &temp)
 {
     string filename = "nuskriaustieji" + to_string(temp) + ".txt";
     string filename1 = "mokslinciai." + to_string(temp) + ".txt";
@@ -176,7 +176,7 @@ void StudentuRusiavimas(deque<Mokinys> &Nuskriaustieji, deque<Mokinys> &Mokslinc
     Isvedimas2(Mokslinciai, Mokslinciai.size(), filename);
     Isvedimas2(Nuskriaustieji, Nuskriaustieji.size(), filename1);
 }
-void StudentuRusiavimas2(deque<Mokinys> &Nuskriaustieji, deque<Mokinys> &Mokslinciai, deque<Mokinys> &A, deque<int> &IrasuSk, string failas, int &temp)
+void Mokinys :: StudentuRusiavimas2(deque<Mokinys> &Nuskriaustieji, deque<Mokinys> &Mokslinciai, deque<Mokinys> &A, deque<int> &IrasuSk, string failas, int &temp)
 {
     string filename = "nuskriaustieji" + to_string(temp) + ".txt";
     string filename1 = "mokslinciai." + to_string(temp) + ".txt";
@@ -211,7 +211,7 @@ void StudentuRusiavimas2(deque<Mokinys> &Nuskriaustieji, deque<Mokinys> &Mokslin
     Isvedimas2(A, A.size(), filename);
     Isvedimas2(Nuskriaustieji, Nuskriaustieji.size(), filename1);
 }
-void Isvedimas(const deque<Mokinys> &A, int MOK_kiekis, string isvedimas)
+void Mokinys :: Isvedimas(const deque<Mokinys> &A, int MOK_kiekis, string isvedimas)
 {
     char kint;
     cout << "Rezultatus matyti norite ekrane ar faile?(e/f): ";
@@ -254,7 +254,7 @@ void Isvedimas(const deque<Mokinys> &A, int MOK_kiekis, string isvedimas)
         throw runtime_error("Netinkama ivestis!");
 }
 
-void Isvedimas2(const deque<Mokinys> &A, int MOK_kiekis, string isvedimas)
+void Mokinys :: Isvedimas2(const deque<Mokinys> &A, int MOK_kiekis, string isvedimas)
 {
   /*   auto start = std::chrono::high_resolution_clock::now();
     auto st = start; */
